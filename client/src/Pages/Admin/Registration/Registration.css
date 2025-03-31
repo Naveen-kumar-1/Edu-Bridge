@@ -1,0 +1,231 @@
+.ed-registration-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: center;
+  background: #f4f4f4;
+}
+
+.ed-registration-container h1 {
+  font-size: 40px;
+}
+.ed-registration-form {
+  width: 600px;
+  margin: 10px 20px;
+  padding: 10px 20px;
+  background: #ffffff;
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+}
+.ed-registration-form div {
+  margin: 10px 0;
+  width: 100%;
+}
+.ed-registration-form form {
+  width: 100%;
+}
+.ed-registration-form h2 {
+  margin: 10px 20px;
+}
+.ed-registration-form .input-fields {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  padding: 10px 20px;
+  gap: 10px;
+  width: 100%;
+  flex-direction: column;
+  font-size: 16px;
+}
+
+.ed-registration-form .input-fields input {
+  font-size: 16px;
+  border: 1px solid #e2e2e2;
+  padding: 10px;
+  border-radius: 6px;
+  width: 100%;
+}
+.ed-registration-form .input-fields input:focus {
+  outline: 2px solid #eee;
+}
+.ed-registration-form .input-fields .error-message {
+  color: red;
+  font-size: 14px;
+  font-weight: 600;
+}
+.ed-registration-form .input-fields label {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 500;
+}
+.important-mark {
+  color: red;
+}
+
+.verification-page {
+  width: 100%;
+  text-align: center;
+  color: #333;
+  padding: 10px 0;
+  position: relative;
+}
+.verification-page span.error-message {
+  font-size: 14px;
+  font-weight: 600;
+  color: red;
+}
+.verification-page p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  opacity: 0.7;
+}
+.verification-btn {
+  cursor: pointer;
+  padding: 8px;
+  margin-top: 20px;
+  border-radius: 6px;
+  color: #fff;
+  background: #000;
+  border: 0;
+  outline: 3px solid #000;
+}
+.verification-submit-btn {
+  cursor: pointer;
+  width: 100px;
+  padding: 8px;
+  border-radius: 6px;
+  color: #fff;
+  background: #000;
+  border: 0;
+  outline: 3px solid #000;
+}
+.success-code-validation {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.success-code-validation p {
+  color: seagreen;
+  font-size: 20px;
+  font-weight: 500;
+}
+.success-code-validation img {
+  width: 60px;
+  margin: 20px;
+}
+
+/* Pagination button css */
+.ed-register-form-pagination {
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensures buttons are spread out */
+}
+
+/* Styling for all pagination buttons */
+.ed-register-form-pagination a,
+.ed-register-form-pagination button {
+  text-decoration: none;
+
+  padding: 10px 20px;
+  border: 0;
+  outline: 0;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+/* Next button styles */
+.ed-register-form-pagination a.next-btn,
+.ed-register-form-pagination button {
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Hover effect for next button */
+.ed-register-form-pagination a.next-btn:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+.ed-register-form-pagination a.previous-btn {
+  color: #000;
+  background: #f0f0f0;
+}
+/* Hover effect for previous button */
+.ed-register-form-pagination a.previous-btn:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+/* Align Previous to the left, and Next/Complete to the right */
+.ed-register-form-pagination .previous-btn {
+  margin-right: auto; /* Moves 'Prev' to the left */
+}
+
+.ed-register-form-pagination .next-btn {
+  margin-left: auto; /* Moves 'Next' or 'Complete Registration' to the right */
+}
+
+/* Display password */
+.display-password {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0.7;
+  width: 100%;
+  padding-left: 20px;
+}
+.display-password input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: black;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.terms-and-condition-error span.error-message {
+  color: red;
+  font-size: 14px;
+  font-weight: 600;
+  padding-left: 20px;
+}
+.send-verification-code {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+/* Top Navigation */
+.top-navigation {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 6px;
+  background: #f0f0f0;
+  padding: 5px 20px;
+  transition: 0.5s;
+  font-size: 16px;
+}
+.navigations {
+  width: 400px;
+  margin: auto;
+  padding: 10px 0px;
+  text-align: center;
+  border-radius: 6px;
+  cursor: pointer;
+}

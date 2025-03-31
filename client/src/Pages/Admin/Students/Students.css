@@ -1,0 +1,410 @@
+.ed-admin-students {
+  width: 100%;
+}
+.ed-admin-student-top {
+  margin: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.ed-admin-student-top div {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-direction: column;
+  align-items: start;
+}
+.ed-admin-student-top div input {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 0;
+  background: #ffffff;
+  border: 1px solid #000;
+  border-color: #e0e0e0;
+}
+.ed-admin-student-top div input:focus {
+  outline: none;
+}
+.ed-admin-student-top button {
+  background: #000;
+  color: #ffffff;
+  padding: 10px 30px;
+  border: 0;
+  outline: none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.ed-admin-student-top button .bx {
+  font-size: 18px;
+}
+/* student list table */
+.ed-student-table-container {
+  width: 100%;
+  height: 63vh;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-controls {
+  margin-top: 20px;
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+  align-items: center;
+}
+
+.pagination-controls button {
+  padding: 8px 16px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  font-size: 16px;
+}
+.ed-student-table-container {
+  width: 100%;
+  margin-top: 20px;
+  overflow-x: auto; /* To handle responsiveness */
+}
+
+.ed-student-table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 16px;
+  height: fit-content;
+}
+
+.ed-student-table thead {
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.ed-student-table thead th {
+  padding: 12px 15px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.ed-student-table tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  height: 20px;
+}
+
+.ed-student-table tbody td {
+  padding: 12px 15px;
+  vertical-align: middle;
+}
+.ed-student-line-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ed-student-table tbody td img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.ed-student-table tbody td span {
+  vertical-align: middle;
+  font-weight: 500;
+}
+
+.ed-student-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.ed-student-table tbody td button {
+  padding: 8px 12px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.ed-student-table tbody td button:hover {
+  opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ed-student-table thead {
+    display: none; /* Hide headers on small screens */
+  }
+
+  .ed-student-table tbody td {
+    display: block;
+    width: 100%;
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  .ed-student-table tbody td:before {
+    content: attr(data-label); /* Adds the label before each cell */
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .ed-student-table tbody td img {
+    display: none; /* Hide images on small screens for better readability */
+  }
+
+  .ed-student-table tbody td span {
+    display: block;
+  }
+}
+
+.ed-admin-student-top input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 16px;
+  background: #f9f9f9;
+  margin-right: 10px;
+}
+
+/* class navigation button */
+.class-navigation {
+  width: fit-content;
+  background: #f4f4f4;
+  padding: 5px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 6px;
+}
+.class-navigation span {
+  padding: 6px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #000;
+  font-weight: 500;
+  font-size: 16px;
+}
+.class-navigation span.active {
+  background: #ffffff;
+}
+/* Single student profile section */
+.selected-student-details {
+  width: 100%;
+}
+.selected-student-details-top {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+.back-vanigation {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.back-vanigation .bx {
+  font-size: 25px;
+  background: #000000;
+  border-radius: 50%;
+  color: #ffffff;
+  padding: 2px;
+  cursor: pointer;
+}
+.selected-student-details-top button {
+  padding: 10px 20px;
+  border: 0;
+  outline: none;
+  background: #000;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.back-vanigation .bx:hover {
+  opacity: 0.7;
+}
+.back-vanigation div {
+  display: flex;
+  align-items: start;
+  gap: 10px;
+  flex-direction: column;
+}
+.back-vanigation div p {
+  font-size: 16px;
+  opacity: 0.7;
+}
+
+.student-profile {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  align-items: start;
+  margin-top: 50px;
+  gap: 40px;
+  border-style: solid;
+  border-width: 0;
+  border: 1px solid #e5e7eb;
+  border-color: #e5e7eb;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+}
+.student-profile img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.selected-student-name {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+}
+.selected-student-name p {
+  text-transform: uppercase;
+  font-size: 16px;
+  opacity: 0.7;
+  color: #333;
+}
+
+.selected-student-name .selected-student-course {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.selected-student-name .selected-student-course span {
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 16px;
+  font-weight: 500;
+}
+.selected-student-name .selected-student-course span:first-child {
+  background: #000;
+  color: #fff;
+  border-radius: 75px;
+  padding: 3px 10px;
+}
+.selected-student-name .selected-student-course span:nth-child(2) {
+  border-style: solid;
+  border-width: 0;
+  border: 1px solid #e5e7eb;
+  border-color: #e5e7eb;
+  border-radius: 75px;
+  padding: 3px 10px;
+}
+.selected-student-name .selected-student-course span:last-child {
+  background: #f4f4f4;
+  border-radius: 75px;
+  padding: 3px 10px;
+}
+/* Student information section */
+.student-personal-contact-acedamic{
+  width: 100%;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+}
+.personal-and-contact{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+.student-personal-details{
+  width: 50%;
+  height: 25vh;
+  border-style: solid;
+  border-width: 0;
+  border: 1px solid #e5e7eb;
+  border-color: #e5e7eb;
+  border-radius: 10px;
+  padding: 20px;
+
+}
+.student-personal-details .informations,.student-contact-details .informations{
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  
+}
+.infos{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 5px;
+}
+.infos:last-child{
+  flex-direction: row;
+
+}
+.infos span{
+  font-size: 16px;
+ opacity: .7; 
+}
+.infos p{
+  font-size: 17px;
+  
+}
+.student-contact-details{
+  width: 50%;
+  height: 25vh;
+  border-style: solid;
+  border-width: 0;
+  border: 1px solid #e5e7eb;
+  border-color: #e5e7eb;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+
+/*  Acedamic details section */
+.student-acedamic-details{
+  width: 90%;
+  margin: auto;
+  margin-top: 20px;
+  height: 30vh;
+  border-style: solid;
+  border-width: 0;
+  border: 1px solid #e5e7eb;
+  border-color: #e5e7eb;
+  border-radius: 10px;
+  padding: 20px;
+}
+.student-acedamic-details .informations{
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+}

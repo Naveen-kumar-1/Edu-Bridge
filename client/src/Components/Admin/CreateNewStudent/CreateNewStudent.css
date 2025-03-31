@@ -1,0 +1,26 @@
+.create-new-student-top{
+    width: 100%;
+}
+.top-bar-first{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.top-bar-first .bx{
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    padding: 5px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.top-bar-first  p{
+    opacity: .7;
+}
+.create-new-form-box{
+    margin-top: 30px;
+}
+.create-new-form-box h2{
+    margin: 20px 0;
+}
