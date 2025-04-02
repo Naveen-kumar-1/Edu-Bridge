@@ -118,7 +118,6 @@ const Students = () => {
             <button onClick={handleCreateNew}>
               <i className="bx bx-plus-circle"></i>Add New Student
             </button>
-            {console.log(createNew)}
           </div>
           
           {/* Class navigation */}

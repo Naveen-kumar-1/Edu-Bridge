@@ -247,7 +247,6 @@ const Registration = () => {
         if (allFormData) {
           localStorage.setItem('isRegistered',true)
           setIsUserRegistred(true)
-          console.log(isUserRegistred);
           
           // Success case: Navigate to login
           toast.success("Success");

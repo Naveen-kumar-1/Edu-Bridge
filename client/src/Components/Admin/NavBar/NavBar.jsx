@@ -10,6 +10,8 @@ const NavBar = () => {
   const {isUserLogin,setIsUserLogin} = useContext(AppContext);
 
   const handleLogout = () => {
+    //Delete from local storage
+    localStorage.removeItem('isLoggedIn');
     // Clear token and logout
     setIsUserLogin(false)
     navigate("/login");

@@ -68,7 +68,6 @@ const Login = () => {
         const registeredUserArray = Array.isArray(registeredUser)
           ? registeredUser
           : [registeredUser];
-          console.log(typeof registeredUserArray);
           
 
         // Now you can use find on the array
