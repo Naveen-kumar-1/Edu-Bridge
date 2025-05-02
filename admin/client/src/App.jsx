@@ -54,7 +54,7 @@ const App = () => {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
-      <ToastContainer /> {/* Place outside Routes */}
+      <ToastContainer /> 
     </div>
   );
 };
