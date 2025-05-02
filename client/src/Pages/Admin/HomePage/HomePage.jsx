@@ -17,7 +17,14 @@ const HomePage = () => {
   const handlePageChange = (page) => {
     setDashboardActivePage(page);
   };
-
+  const formatDate = (timestamp) => {
+    if (!timestamp) return "";
+    const date = new Date(timestamp * 1000);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
   return (
     <div className="ed-dashboard-home">
       <div className="ed-dashboard-top">
@@ -317,11 +324,6 @@ const HomePage = () => {
               </thead>
               <tbody>
                 {upComingEvents
-                  .filter((event) => {
-                    const eventDate = new Date(event.date);
-                    const today = new Date();
-                    return eventDate >= today; // Only include events that are today or later
-                  })
                   .slice(0, 10)
                   .map((events, index) => {
                     return (
@@ -329,17 +331,7 @@ const HomePage = () => {
                         <td>{serialNumber++}</td>
                         <td>{events.event_name}</td>
                         <td>
-                          {" "}
-                          {new Date(events.date).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })}{" "}
-                          •{" "}
-                          {new Date(events.date).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
+                         {formatDate(events.date)}
                         </td>
                       </tr>
                     );

@@ -237,6 +237,7 @@ const Registration = () => {
       };
 
       try {
+      
         localStorage.setItem(
           "registeredDepartmentData",
           JSON.stringify(allFormData)
@@ -249,8 +250,8 @@ const Registration = () => {
           setIsUserRegistred(true)
           
           // Success case: Navigate to login
-          toast.success("Success");
-      //    navigate("/login");
+          toast.success("Registration completed successfully.");
+          navigate("/login");
         } else {
           // Error case: Display error message from the response
           toast.error(result.error || "Registration failed");

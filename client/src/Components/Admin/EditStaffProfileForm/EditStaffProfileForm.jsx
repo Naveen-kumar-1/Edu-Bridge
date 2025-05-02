@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import "./EditStudentProfileForm.css";
+import "./EditStaffProfileForm.css";
 import { toast } from "react-toastify";
-const EditStudentProfileForm = ({
-  selectedStudent,
+const EditStaffProfileForm = ({
+  selectedStaff,
   handleProfileUpdate,
   handleCancel,
 }) => {
-  
+    
   const formatDate = (timestamp) => {
     if (!timestamp) return ""; // Handle null/undefined cases
 
@@ -17,34 +17,22 @@ const EditStudentProfileForm = ({
 
     return `${year}-${month}-${day}`; // Return in YYYY-MM-DD format
   };
-  
 
-  // Initialize form values based on selectedStudent
+  // Initialize form values based on selectedStaff
   const [formData, setFormData] = useState({
-    first_name: selectedStudent.first_name,
-    last_name: selectedStudent.last_name,
-    register_number: selectedStudent.register_number,
-    department:selectedStudent.department,
-    class: selectedStudent.class,
-    gender: selectedStudent.gender,
-    date_of_birth: formatDate(selectedStudent.date_of_birth),
-    adhaar: selectedStudent.adhaar,
-    father_name: selectedStudent.father_name,
-    mother_name: selectedStudent.mother_name,
-    fathers_occupation: selectedStudent.fathers_occupation,
-    blood_group: selectedStudent.blood_group,
-    mobile_number: selectedStudent.mobile_number,
-    email: selectedStudent.email,
-    address: selectedStudent.address,
-    college: selectedStudent.college,
-    year_of_study: selectedStudent.year_of_study,
-    tenth_mark: selectedStudent.tenth_mark,
-    eleventh_mark: selectedStudent.eleventh_mark,
-    twelfth_mark: selectedStudent.twelfth_mark,
-    higher_secondry_group: selectedStudent.higher_secondry_group,
-    school: selectedStudent.school,
+    first_name: selectedStaff.first_name,
+    last_name: selectedStaff.last_name,
+    staff_id: selectedStaff.staff_id,
+    class: selectedStaff.class,
+    gender: selectedStaff.gender,
+    date_of_birth: formatDate(selectedStaff.date_of_birth),
+    adhaar: selectedStaff.adhaar,
+    mobile_number: selectedStaff.mobile_number,
+    email: selectedStaff.email,
+    address: selectedStaff.address,
+    date_of_joining:formatDate(selectedStaff.date_of_joining),
+    qualification:selectedStaff.qualification
   });
-  console.log(formData);
   
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState({});
@@ -66,14 +54,8 @@ const EditStudentProfileForm = ({
       if (!formData.date_of_birth)
         currentErrors.date_of_birth = "Date of birth is required";
       if (!formData.adhaar) currentErrors.adhaar = "Adhaar number is required";
-      if (!formData.father_name)
-        currentErrors.father_name = "Father's name is required";
-      if (!formData.mother_name)
-        currentErrors.mother_name = "Mother's name is required";
-      if (!formData.fathers_occupation)
-        currentErrors.fathers_occupation = "Father's occupation is required";
-      if (!formData.blood_group)
-        currentErrors.blood_group = "Blood Group is required";
+      if(!formData.gender)currentErrors.gender = "Gender is required"
+      
     }
     if (currentPage === 2) {
       if (!formData.mobile_number)
@@ -87,39 +69,18 @@ const EditStudentProfileForm = ({
         currentErrors.email = "Invalid email formate";
     }
     if (currentPage === 3) {
-      if (!formData.register_number)
-        currentErrors.register_number = "Register number is required";
-      else if (formData.register_number.length != 9)
-        currentErrors.register_number = "Register number must be 9 letters";
+      if (!formData.staff_id)
+        currentErrors.staff_id = "Register number is required";
+      else if (formData.staff_id.length != 9)
+        currentErrors.staff_id = "Register number must be 9 letters";
 
       if (!formData.class) currentErrors.class = "Class is Required";
-      if (!formData.tenth_mark)
-        currentErrors.tenth_mark = "10th mark is required";
-      if (!formData.tenth_mark) {
-        currentErrors.tenth_mark = "10th mark is required";
-      } else if (isNaN(formData.tenth_mark)) {
-        currentErrors.tenth_mark = "Only numbers are allowed for 10th mark";
-      }
+      if (!formData.date_of_joining)
+        currentErrors.date_of_joining = "Date of joining is required";
+      if (!formData.qualification) {
+        currentErrors.qualification = "Qualification is required";
+      } 
 
-      if (!formData.eleventh_mark) {
-        currentErrors.eleventh_mark = "11th mark is required";
-      } else if (isNaN(formData.eleventh_mark)) {
-        currentErrors.eleventh_mark = "Only numbers are allowed for 11th mark";
-      }
-
-      if (!formData.twelfth_mark) {
-        currentErrors.twelfth_mark = "12th mark is required";
-      } else if (isNaN(formData.twelfth_mark)) {
-        currentErrors.twelfth_mark = "Only numbers are allowed for 12th mark";
-      }
-
-      if (!formData.school) {
-        currentErrors.school = "School name is required";
-      }
-
-      if (!formData.higher_secondry_group)
-        currentErrors.higher_secondry_group =
-          "Higher Secondry Group is required";
     }
 
     setError(currentErrors);
@@ -140,7 +101,7 @@ const EditStudentProfileForm = ({
     e.preventDefault();
     if (validateForm()) {
       handleProfileUpdate(formData); 
-       toast.success("Student Data updated successfully");// Call the function to update profile
+       toast.success("staff Data updated successfully");// Call the function to update profile
     }else{
          toast.error("An error occurred. Please fix the issue to continue.");
     }
@@ -148,12 +109,12 @@ const EditStudentProfileForm = ({
 
   return (
     <>
-      <div className="selected-student-details-top">
+      <div className="selected-staff-details-top">
         <div className="back-vanigation">
           <i class="bx bxs-chevron-left" onClick={handleCancel}></i>
           <div>
-            <h2>Edit Student Profile</h2>
-            <p>View and edit student information</p>
+            <h2>Edit staff Profile</h2>
+            <p>View and edit staff information</p>
           </div>
         </div>
       </div>{" "}
@@ -184,6 +145,23 @@ const EditStudentProfileForm = ({
                   {error.last_name && <span>{error.last_name}</span>}
                 </div>
                 <div className="input-fields">
+                  <label htmlFor="">Gender </label>
+                  <select
+                    type="text"
+                    name="gender"
+                    onChange={handleChange}
+                    value={formData.gender}
+
+                
+                  >
+                     <option value="">select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="others">Others</option>
+                  </select>
+                  {error.gender && <span className="error">{error.gender}</span>}
+                </div>
+                <div className="input-fields">
                   {" "}
                   <label>Date of Birth:</label>
                   <input
@@ -206,48 +184,7 @@ const EditStudentProfileForm = ({
                   />
                   {error.adhaar && <span>{error.adhaar}</span>}
                 </div>
-                <div className="input-fields">
-                  <label>Father's Name:</label>
-                  <input
-                    type="text"
-                    name="father_name"
-                    value={formData.father_name}
-                    onChange={handleChange}
-                  />
-                  {error.father_name && <span>{error.father_name}</span>}
-                </div>
-                <div className="input-fields">
-                  <label>Mother's Name:</label>
-                  <input
-                    type="text"
-                    name="mother_name"
-                    value={formData.mother_name}
-                    onChange={handleChange}
-                  />
-                  {error.mother_name && <span>{error.mother_name}</span>}
-                </div>
-                <div className="input-fields">
-                  <label>Father's Occupation:</label>
-                  <input
-                    type="text"
-                    name="fathers_occupation"
-                    value={formData.fathers_occupation}
-                    onChange={handleChange}
-                  />
-                  {error.fathers_occupation && (
-                    <span>{error.fathers_occupation}</span>
-                  )}
-                </div>
-                <div className="input-fields">
-                  <label>Blood Group:</label>
-                  <input
-                    type="text"
-                    name="blood_group"
-                    value={formData.blood_group}
-                    onChange={handleChange}
-                  />
-                  {error.blood_group && <span>{error.blood_group}</span>}
-                </div>
+               
               </div>
             </>
           )}
@@ -299,13 +236,14 @@ const EditStudentProfileForm = ({
               <div className="form-section">
                 <div className="input-fields">
                   {" "}
-                  <label>Register Number:</label>
+                  <label>Staff Number:</label>
                   <input
                     type="text"
-                    name="register_number"
-                    value={formData.register_number}
+                    name="staff_id"
+                    value={formData.staff_id}
                     onChange={handleChange}
                   />
+                  {error.staff_id && (<span>{error.staff_id}</span>)}
                 </div>
                 <div className="input-fields">
                   {" "}
@@ -316,99 +254,41 @@ const EditStudentProfileForm = ({
                     value={formData.class}
                     onChange={handleChange}
                   >
+                    <option>Select Class</option>
+                    <option value="no-class-teacher">Not Applicable</option>
                     <option value="first-ug">UG First Year</option>
                     <option value="second-ug">UG Second Year</option>
                     <option value="third-ug">UG Third Year</option>
                     <option value="first-pg">PG First Year</option>
                     <option value="second-pg">PG Second Year</option>
                   </select>
+                  {error.class && (<span>{error.class}</span>)}
                 </div>
                 <div className="input-fields">
                   {" "}
-                  <label>Department:</label>
+                  <label>Joining Date:</label>
                   <input
-                    type="text"
-                    name="department"
-                    value={formData.department}
+                    type="date"
+                    name="date_of_joining"
+                    value={formData.date_of_joining}
                     onChange={handleChange}
-                    readOnly
+
                   />
+                  {error.date_of_joining && (<span>{error.date_of_joining}</span>)}
                 </div>
                 <div className="input-fields">
                   {" "}
-                  <label>College:</label>
+                  <label>Qualification:</label>
                   <input
                     type="text"
-                    name="college"
-                    value={formData.college}
+                    name="qualification"
+                    value={formData.qualification}
                     onChange={handleChange}
-                    readOnly
+                    
                   />
+                  {error.qualification && (<span>{error.qualification}</span>)}
                 </div>
-                <div className="input-fields">
-                  {" "}
-                  <label>Batch (Year of Study):</label>
-                  <input
-                    type="text"
-                    name="year_of_study"
-                    value={formData.year_of_study}
-                    onChange={handleChange}
-                    readOnly
-                  />
-                </div>
-                <div className="input-fields">
-                  <label>10th Mark:</label>
-                  <input
-                    type="text"
-                    name="tenth_mark"
-                    value={formData.tenth_mark}
-                    onChange={handleChange}
-                  />
-                  {error.tenth_mark && <span>{error.tenth_mark}</span>}
-                </div>
-                <div className="input-fields">
-                  {" "}
-                  <label>11th Mark:</label>
-                  <input
-                    type="text"
-                    name="eleventh_mark"
-                    value={formData.eleventh_mark}
-                    onChange={handleChange}
-                  />
-                  {error.eleventh_mark && <span>{error.eleventh_mark}</span>}
-                </div>
-                <div className="input-fields">
-                  <label>12th Mark:</label>
-                  <input
-                    type="text"
-                    name="twelfth_mark"
-                    value={formData.twelfth_mark}
-                    onChange={handleChange}
-                  />
-                  {error.twelfth_mark && <span>{error.twelfth_mark}</span>}
-                </div>
-                <div className="input-fields">
-                  <label>Higher Secondary Group:</label>
-                  <input
-                    type="text"
-                    name="higher_secondry_group"
-                    value={formData.higher_secondry_group}
-                    onChange={handleChange}
-                  />
-                  {error.higher_secondry_group && (
-                    <span>{error.higher_secondry_group}</span>
-                  )}
-                </div>
-                <div className="input-fields">
-                  <label>School Name:</label>
-                  <input
-                    type="text"
-                    name="school"
-                    value={formData.school}
-                    onChange={handleChange}
-                  />
-                  {error.school && <span>{error.school}</span>}
-                </div>
+                
               </div>
             </>
           )}
@@ -433,4 +313,4 @@ const EditStudentProfileForm = ({
   );
 };
 
-export default EditStudentProfileForm;
+export default EditStaffProfileForm;

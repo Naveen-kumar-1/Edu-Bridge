@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import "./Staffs.css";
 import { staffsData } from "../../../assets/data";
 import CreateNewStaff from "../../../Components/Admin/CreateNewStaff/CreateNewStaff";
-// import EditProfileForm from "../../../Components/Admin/EditStaffsProfileForm/EditStaffsProfileForm";
-// import CreateNewStaffs from "../../../Components/Admin/CreateNewStaffs/CreateNewStaffs";
-
+import EditStaffProfileForm from "../../../Components/Admin/EditStaffProfileForm/EditStaffProfileForm";
 const Staffs = () => {
   
   const [currentPage, setCurrentPage] = useState(1); // State to track current page
@@ -238,20 +236,9 @@ const Staffs = () => {
                     <span>Adhaar :</span> <p>{selectedStaffs.adhaar}</p>
                   </div>
                   <div className="infos">
-                    <span>Father's Name :</span>{" "}
-                    <p>{selectedStaffs.father_name}</p>
+                    <span>Gender :</span> <p>{selectedStaffs.gender}</p>
                   </div>
-                  <div className="infos">
-                    <span>Mother's Name :</span>{" "}
-                    <p>{selectedStaffs.mother_name}</p>
-                  </div>
-                  <div className="infos">
-                    <span>Father's Occupation :</span>{" "}
-                    <p>{selectedStaffs.fathers_occupation}</p>
-                  </div>
-                  <div className="infos">
-                    <span>Blood :</span> <p>{selectedStaffs.blood_group}</p>
-                  </div>
+                
                 </div>
               </div>
               <div className="Staffs-contact-details">
@@ -276,7 +263,7 @@ const Staffs = () => {
               <div className="informations">
                 <div className="infos">
                   <span>Staff ID :</span>{" "}
-                  <p>{selectedStaffs.staff_id}</p>{" "}
+                  <p>{selectedStaffs.staff_id}</p>
                 </div>
                 <div className="infos">
                   <span>Class :(If class adviser)</span> <p>{selectedStaffs.class?? 'N/A'}</p>
@@ -285,7 +272,7 @@ const Staffs = () => {
                   <span>College name :</span> <p>{selectedStaffs.college }</p>
                 </div>
                 <div className="infos">
-                  <span>Joining Data :</span> <p>{selectedStaffs.joining_date}</p>
+                  <span>Joining Data :</span> <p>{formatDate(selectedStaffs.date_of_joining)}</p>
                 </div>
                 <div className="infos">
                   <span>Qualication :</span> <p>{selectedStaffs.qualication}</p>
@@ -296,15 +283,14 @@ const Staffs = () => {
           </div>
         </div>
       )}
-      {selectedStaffs && isEditing && (
-        <>
-          <EditProfileForm
-            selectedStaffs={selectedStaffs}
-            handleProfileUpdate={handleProfileUpdate}
-            handleCancel={handleCancel}
-          />
-        </>
-      )}
+     {selectedStaffs && isEditing && selectedStaffs.first_name && (
+  <EditStaffProfileForm
+  selectedStaff={selectedStaffs}
+    handleProfileUpdate={handleProfileUpdate}
+    handleCancel={handleCancel}
+  />
+)}
+
     </div>
   );
 };

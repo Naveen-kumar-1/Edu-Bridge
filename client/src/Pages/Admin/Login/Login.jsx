@@ -121,7 +121,7 @@ const Login = () => {
     <>
     <NavBar />
     <div className="login-form-container">
-    
+  
       <h1>Login your Department</h1>
       <div className="login-form-box">
         {!requiresTwoStep && (

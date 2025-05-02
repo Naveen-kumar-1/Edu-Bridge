@@ -3,6 +3,7 @@ import "./Students.css";
 import { studentsData } from "../../../assets/data";
 import EditProfileForm from "../../../Components/Admin/EditStudentProfileForm/EditStudentProfileForm";
 import CreateNewStudent from "../../../Components/Admin/CreateNewStudent/CreateNewStudent";
+import EditStudentProfileForm from "../../../Components/Admin/EditStudentProfileForm/EditStudentProfileForm";
 
 const Students = () => {
   const [currentPage, setCurrentPage] = useState(1); // State to track current page
@@ -318,8 +319,10 @@ const Students = () => {
         </div>
       )}
       {selectedStudent && isEditing && (
+        
+        
         <>
-          <EditProfileForm
+          <EditStudentProfileForm
             selectedStudent={selectedStudent}
             handleProfileUpdate={handleProfileUpdate}
             handleCancel={handleCancel}

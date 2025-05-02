@@ -8,6 +8,7 @@ const CreateNewStaff = ({ handleBackToHome }) => {
     first_name: "",
     last_name: "",
     date_of_birth: "",
+    gender:'',
     adhaar: "",
     email: "",
     mobile_number: "",
@@ -27,6 +28,7 @@ const CreateNewStaff = ({ handleBackToHome }) => {
       if (!formData.last_name) validationErrors.last_name = "Last name is required";
       if (!formData.date_of_birth) validationErrors.date_of_birth = "Date of birth is required";
       if (!formData.adhaar) validationErrors.adhaar = "Aadhaar number is required";
+      if(!formData.gender)validationErrors.gender = "Gender is required";
     }
     if (currentPage === 2) {
       if (!formData.email) validationErrors.email = "Email is required";
@@ -80,7 +82,8 @@ const CreateNewStaff = ({ handleBackToHome }) => {
         designation: "",
         experience: "",
         qualification: "",
-        joining_date: ""
+        joining_date: "",
+        gender:""
       });
       setCurrentPage(1);
     }
@@ -103,14 +106,44 @@ const CreateNewStaff = ({ handleBackToHome }) => {
             <>
               <h2>Personal Information</h2>
               <div className="form-section">
-                {['first_name', 'last_name', 'date_of_birth', 'adhaar'].map((field) => (
 
-                  <div className="input-fields" key={field}>
-                    <label htmlFor="">{field}</label>
-                    <input type={field === 'date_of_birth' ? 'date' : 'text'} name={field} placeholder={field.replace('_', ' ')} onChange={handleInputChange} />
-                    {errors[field] && <p className="error-message">{errors[field]}</p>}
+                  <div className="input-fields">
+                    <label htmlFor="">First Name</label>
+                    <input type='text' name='first_name' placeholder='Enter first name' onChange={handleInputChange} />
+                    {errors.first_name && <p className="error-message">{errors.first_name}</p>}
                   </div>
-                ))}
+                   <div className="input-fields">
+                   <label htmlFor="">Last Name</label>
+                   <input type='text' name='last_name' placeholder='Enter last name' onChange={handleInputChange} />
+                   {errors.last_name && <p className="error-message">{errors.last_name}</p>}
+                 </div>
+                 <div className="input-fields">
+                  <label htmlFor="">Gender </label>
+                  <select
+                    type="text"
+                    name="gender"
+                    onChange={handleInputChange}
+                
+                  >
+                     <option value="">select class</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="others">Others</option>
+                  </select>
+                  {errors.gender && <span className="error">{errors.gender}</span>}
+                </div>
+                 
+                  <div className="input-fields">
+                  <label htmlFor="">Date of birth</label>
+                  <input type='date' name='date_of_birth'  onChange={handleInputChange} />
+                  {errors.date_of_birth && <p className="error-message">{errors.date_of_birth}</p>}
+                </div>
+                 <div className="input-fields">
+                 <label htmlFor="">Adhaar </label>
+                 <input type='text' name='adhaar' placeholder='Enter adhaar number' onChange={handleInputChange} />
+                 {errors.adhaar && <p className="error-message">{errors.adhaar}</p>}
+               </div>
+
               </div>
             </>
           )}
@@ -119,13 +152,21 @@ const CreateNewStaff = ({ handleBackToHome }) => {
             <>
               <h2>Contact Information</h2>
               <div className="form-section">
-                {['email', 'mobile_number', 'address'].map((field) => (
-                  <div className="input-fields" key={field}>
-                    <label htmlFor="">{field}</label>
-                    <input type={field === 'email' ? 'email' : 'text'} name={field} placeholder={field.replace('_', ' ')} onChange={handleInputChange} />
-                    {errors[field] && <p className="error-message">{errors[field]}</p>}
+                  <div className="input-fields" >
+                    <label htmlFor="">Email</label>
+                    <input type='email' name='email' placeholder='Enter email' onChange={handleInputChange} />
+                    {errors.email && <p className="error-message">{errors.email}</p>}
                   </div>
-                ))}
+                   <div className="input-fields" >
+                   <label htmlFor="">Mobile number</label>
+                   <input type='text' name='mobile_number' placeholder='Enter mobile number' onChange={handleInputChange} />
+                   {errors.mobile_number && <p className="error-message">{errors.mobile_number}</p>}
+                 </div>
+                  <div className="input-fields" >
+                  <label htmlFor="">Address</label>
+                  <input type='text' name='address' placeholder='Enter address' onChange={handleInputChange} />
+                  {errors.address && <p className="error-message">{errors.address}</p>}
+                </div>
               </div>
             </>
           )}
@@ -134,13 +175,26 @@ const CreateNewStaff = ({ handleBackToHome }) => {
             <>
               <h2>Professional Information</h2>
               <div className="form-section">
-                {[ 'designation', 'experience (If Not set it as a Fresher)', 'qualification', 'joining_date'].map((field) => (
-                  <div className="input-fields" key={field}>
-                    <label>{field}</label>
-                    <input type={field === 'joining_date' ? 'date' : 'text'} name={field} placeholder={field.replace('_', ' ')} onChange={handleInputChange} />
-                    {errors[field] && <p className="error-message">{errors[field]}</p>}
+                  <div className="input-fields" >
+                    <label>Designation</label>
+                    <input type='text' name='designation' placeholder='Enter Degigination' onChange={handleInputChange} />
+                    {errors.designation && <p className="error-message">{errors.designation}</p>}
                   </div>
-                ))}
+                   <div className="input-fields"  >
+                   <label>Experience (If not set it as a Fresher)</label>
+                   <input type='text' name='experience' placeholder='Enter Expreince' onChange={handleInputChange} />
+                   {errors.experience && <p className="error-message">{errors.experience}</p>}
+                 </div>
+                  <div className="input-fields"  >
+                  <label>Qualification</label>
+                  <input type='text' name='qualification' placeholder='Enter Qualification' onChange={handleInputChange} />
+                  {errors.qualification && <p className="error-message">{errors.qualification}</p>}
+                </div>
+                <div className="input-fields"  >
+                <label>Join Date</label>
+                <input type='date' name='joining_date'  onChange={handleInputChange} />
+                {errors.joining_date && <p className="error-message">{errors.joining_date}</p>}
+              </div>
               </div>
             </>
           )}
