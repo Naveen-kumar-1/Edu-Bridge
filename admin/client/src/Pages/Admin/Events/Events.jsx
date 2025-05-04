@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Skeleton from "react-loading-skeleton"; // Import skeleton loader
 import "./Events.css";
 import { upComingEvents } from "../../../assets/data";
 import CreateNewEvent from "../../../Components/Admin/CreateNewEvent/CreateNewEvent";
@@ -11,6 +12,7 @@ const Events = () => {
   const [isCreateNewEvent, setIsCreateNewEvent] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editEventData, setEditEventData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
 
   const totalPages = Math.ceil(upComingEvents.length / itemsPerPage);
 
@@ -34,9 +36,18 @@ const Events = () => {
     setEditEventData(event);
     setIsEdit(true);
   };
-  const handleDeleteEvent =(event_name)=>{
-    toast.success("Deleted successfully...!")
-  }
+
+  const handleDeleteEvent = (event_name) => {
+    toast.success("Deleted successfully...!");
+  };
+
+  // Simulate loading for 2 seconds
+  React.useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false); // Set loading to false after 2 seconds
+    }, 2000);
+  }, []);
+
   return (
     <div className="ed-events">
       {!isCreateNewEvent && !isEdit && (
@@ -69,25 +80,46 @@ const Events = () => {
                 </tr>
               </thead>
               <tbody>
-                {currentEvents.map((event, index) => (
-                  <tr key={index}>
-                    <td>{startIndex + index + 1}</td>
-                    <td>{event.event_name}</td>
-                    <td>{event.description}</td>
-                    <td>{formatDate(event.date)}</td>
-                    <td>
-                      <span className="edit-btn">
-                        <i
-                          className="bx bx-edit"
-                          onClick={() => handleEditEvents(event)}
-                        ></i>
-                      </span>
-                      <span className="delete-btn">
-                        <i className="bx bx-trash" onClick={()=>handleDeleteEvent(event.event_name)}></i>
-                      </span>
-                    </td>
-                  </tr>
-                ))}
+                {isLoading ? (
+                  // Display skeleton loader while data is loading
+                  <>
+                    {[...Array(itemsPerPage)].map((_, index) => (
+                      <tr key={index}>
+                        <td><Skeleton width={40} /></td>
+                        <td><Skeleton width={200} /></td>
+                        <td><Skeleton width={300} /></td>
+                        <td><Skeleton width={120} /></td>
+                        <td>
+                          <Skeleton width={50} />
+                          <Skeleton width={50} />
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+                ) : (
+                  currentEvents.map((event, index) => (
+                    <tr key={index}>
+                      <td>{startIndex + index + 1}</td>
+                      <td>{event.event_name}</td>
+                      <td>{event.description}</td>
+                      <td>{formatDate(event.date)}</td>
+                      <td>
+                        <span className="edit-btn">
+                          <i
+                            className="bx bx-edit"
+                            onClick={() => handleEditEvents(event)}
+                          ></i>
+                        </span>
+                        <span className="delete-btn">
+                          <i
+                            className="bx bx-trash"
+                            onClick={() => handleDeleteEvent(event.event_name)}
+                          ></i>
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
 

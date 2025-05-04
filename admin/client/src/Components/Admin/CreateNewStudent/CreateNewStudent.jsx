@@ -128,7 +128,6 @@ const CreateNewStudent = ({ handleBackToHome }) => {
           {currentPage === 1 && (
             <>
              <h2>Personal Informations</h2> 
-              <div className="form-section">
                 <div className="input-fields">
                   <label htmlFor="">First Name</label>
                   <input
@@ -204,13 +203,11 @@ const CreateNewStudent = ({ handleBackToHome }) => {
                   />
                     {errors.blood_group && <span className="error">{errors.blood_group}</span>}
                 </div>
-              </div>
             </>
           )}
           {currentPage === 2 && (
             <>
              <h2> Acadamic Informations</h2>
-              <div className="form-section">
                 <div className="input-fields">
                   <label htmlFor="">Mobile Number</label>
                   <input
@@ -236,13 +233,11 @@ const CreateNewStudent = ({ handleBackToHome }) => {
                   />
                     {errors.address && <span className="error">{errors.address}</span>}
                 </div>
-              </div>
             </>
           )}
           {currentPage === 3 && (
             <>
             <h2>Acadamic Information</h2>
-              <div className="form-section">
                 <div className="input-fields">
                   <label htmlFor="">Class </label>
                   <select
@@ -321,7 +316,6 @@ const CreateNewStudent = ({ handleBackToHome }) => {
                   />
                     {errors.school && <span className="error">{errors.school}</span>}
                 </div>
-              </div>
             </>
           )}
            <div className="form-actions">

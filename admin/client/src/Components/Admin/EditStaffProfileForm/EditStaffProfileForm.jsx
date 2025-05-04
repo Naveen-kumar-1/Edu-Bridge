@@ -123,7 +123,6 @@ const EditStaffProfileForm = ({
           {currentPage === 1 && (
             <>
               <h3>Personal Information</h3>
-              <div className="form-section">
                 <div className="input-fields">
                   <label>First Name:</label>
                   <input
@@ -185,7 +184,7 @@ const EditStaffProfileForm = ({
                   {error.adhaar && <span>{error.adhaar}</span>}
                 </div>
                
-              </div>
+              
             </>
           )}
 
@@ -193,7 +192,6 @@ const EditStaffProfileForm = ({
           {currentPage === 2 && (
             <>
               <h3>Contact Information</h3>
-              <div className="form-section">
                 <div className="input-fields">
                   <label>Mobile Number:</label>
                   <input
@@ -225,7 +223,7 @@ const EditStaffProfileForm = ({
                   />
                   {error.address && <span>{error.address}</span>}
                 </div>
-              </div>{" "}
+              
             </>
           )}
 
@@ -233,7 +231,6 @@ const EditStaffProfileForm = ({
           {currentPage === 3 && (
             <>
               <h3>Academic Details</h3>
-              <div className="form-section">
                 <div className="input-fields">
                   {" "}
                   <label>Staff Number:</label>
@@ -289,7 +286,6 @@ const EditStaffProfileForm = ({
                   {error.qualification && (<span>{error.qualification}</span>)}
                 </div>
                 
-              </div>
             </>
           )}
 

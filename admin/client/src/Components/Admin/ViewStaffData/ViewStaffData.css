@@ -1,0 +1,26 @@
+.skeleton-box {
+    background: #e0e0e0;
+    border-radius: 4px;
+    animation: pulse 1.5s infinite;
+    height: 16px;
+  }
+  
+  .skeleton-box.sm { width: 100px; height: 16px; }
+  .skeleton-box.md { width: 200px; height: 20px; }
+  .skeleton-box.lg { width: 300px; height: 24px; }
+  .skeleton-box.xs { width: 60px; height: 14px; }
+  
+  .skeleton-circle.lg {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+  }
+  

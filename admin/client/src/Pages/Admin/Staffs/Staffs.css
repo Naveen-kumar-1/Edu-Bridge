@@ -410,3 +410,44 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 20px;
   }
+  /* Skeleton loading styles */
+.skeleton-box {
+  height: 16px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f3f3f3 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  width: 100px;
+}
+
+.skeleton-box.sm {
+  width: 50px;
+}
+
+.skeleton-box.lg {
+  width: 200px;
+  height: 24px;
+}
+
+.skeleton-circle {
+  border-radius: 50%;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f3f3f3 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  width: 40px;
+  height: 40px;
+}
+
+.skeleton-circle.lg {
+  width: 100px;
+  height: 100px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

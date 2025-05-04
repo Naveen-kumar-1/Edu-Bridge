@@ -105,7 +105,6 @@ const CreateNewStaff = ({ handleBackToHome }) => {
           {currentPage === 1 && (
             <>
               <h2>Personal Information</h2>
-              <div className="form-section">
 
                   <div className="input-fields">
                     <label htmlFor="">First Name</label>
@@ -144,14 +143,12 @@ const CreateNewStaff = ({ handleBackToHome }) => {
                  {errors.adhaar && <p className="error-message">{errors.adhaar}</p>}
                </div>
 
-              </div>
             </>
           )}
 
           {currentPage === 2 && (
             <>
               <h2>Contact Information</h2>
-              <div className="form-section">
                   <div className="input-fields" >
                     <label htmlFor="">Email</label>
                     <input type='email' name='email' placeholder='Enter email' onChange={handleInputChange} />
@@ -167,14 +164,12 @@ const CreateNewStaff = ({ handleBackToHome }) => {
                   <input type='text' name='address' placeholder='Enter address' onChange={handleInputChange} />
                   {errors.address && <p className="error-message">{errors.address}</p>}
                 </div>
-              </div>
             </>
           )}
 
           {currentPage === 3 && (
             <>
               <h2>Professional Information</h2>
-              <div className="form-section">
                   <div className="input-fields" >
                     <label>Designation</label>
                     <input type='text' name='designation' placeholder='Enter Degigination' onChange={handleInputChange} />
@@ -194,7 +189,6 @@ const CreateNewStaff = ({ handleBackToHome }) => {
                 <label>Join Date</label>
                 <input type='date' name='joining_date'  onChange={handleInputChange} />
                 {errors.joining_date && <p className="error-message">{errors.joining_date}</p>}
-              </div>
               </div>
             </>
           )}

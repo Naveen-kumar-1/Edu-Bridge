@@ -162,7 +162,6 @@ const EditStudentProfileForm = ({
           {currentPage === 1 && (
             <>
               <h3>Personal Information</h3>
-              <div className="form-section">
                 <div className="input-fields">
                   <label>First Name:</label>
                   <input
@@ -248,7 +247,6 @@ const EditStudentProfileForm = ({
                   />
                   {error.blood_group && <span>{error.blood_group}</span>}
                 </div>
-              </div>
             </>
           )}
 
@@ -256,7 +254,6 @@ const EditStudentProfileForm = ({
           {currentPage === 2 && (
             <>
               <h3>Contact Information</h3>
-              <div className="form-section">
                 <div className="input-fields">
                   <label>Mobile Number:</label>
                   <input
@@ -288,7 +285,6 @@ const EditStudentProfileForm = ({
                   />
                   {error.address && <span>{error.address}</span>}
                 </div>
-              </div>{" "}
             </>
           )}
 
@@ -296,7 +292,6 @@ const EditStudentProfileForm = ({
           {currentPage === 3 && (
             <>
               <h3>Academic Details</h3>
-              <div className="form-section">
                 <div className="input-fields">
                   {" "}
                   <label>Register Number:</label>
@@ -409,7 +404,6 @@ const EditStudentProfileForm = ({
                   />
                   {error.school && <span>{error.school}</span>}
                 </div>
-              </div>
             </>
           )}
 
