@@ -882,3 +882,158 @@ export const staffsData = [
     },
   },
 ];
+
+
+
+export const posts = [
+  {
+    post_images: [
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+    ],
+    post_name: "Kratos Awakens",
+    post_descrition: "A new journey begins as Kratos rises from the ashes of war.",
+  },
+  {
+    post_images: [
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+    ],
+    post_name: "The Ghost of Sparta",
+    post_descrition: "Explore the legacy of a warrior haunted by his past.",
+  },
+  {
+    post_images: [
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+    ],
+    post_name: "Wrath Unleashed",
+    post_descrition: "Kratos takes on the gods with fury unmatched.",
+  },
+  {
+    post_images: [
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+    ],
+    post_name: "Spartan Resolve",
+    post_descrition: "The strength of a Spartan lies not just in his sword, but in his will.",
+  },
+  {
+    post_images: [
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+    ],
+    post_name: "God Killer",
+    post_descrition: "A tale of vengeance that shakes Mount Olympus itself.",
+  },
+  {
+    post_images: [
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+    ],
+    post_name: "Ashes of War",
+    post_descrition: "Burned by betrayal, Kratos forges a path soaked in chaos.",
+  },
+  {
+    post_images: [
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+    ],
+    post_name: "Chains Broken",
+    post_descrition: "Freed from bondage, he sets out to reclaim his fate.",
+  },
+  {
+    post_images: [
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+    ],
+    post_name: "Frozen North",
+    post_descrition: "Kratos navigates the harsh realms of Norse mythology.",
+  },
+  {
+    post_images: [
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+    ],
+    post_name: "Father & Son",
+    post_descrition: "A warrior becomes a father—lessons in strength and compassion unfold.",
+  },
+  {
+    post_images: [
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+    ],
+    post_name: "Myth & Might",
+    post_descrition: "Legends clash as Kratos journeys through mythological realms.",
+  },
+  {
+    post_images: [
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+    ],
+    post_name: "Battle Cry",
+    post_descrition: "The battlefield echoes with the roar of a true warrior.",
+  },
+  {
+    post_images: [
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+    ],
+    post_name: "Divine Reckoning",
+    post_descrition: "No god is safe when vengeance knows no bounds.",
+  },
+  {
+    post_images: [
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+    ],
+    post_name: "Legacy of Blades",
+    post_descrition: "The Blades of Chaos carve a new legacy into history.",
+  },
+  {
+    post_images: [
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+    ],
+    post_name: "Silent Rage",
+    post_descrition: "Behind every silent step, a storm brews inside Kratos.",
+  },
+  {
+    post_images: [
+      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+    ],
+    post_name: "Rebirth",
+    post_descrition: "A new age dawns as the god-slayer finds peace in war.",
+  }
+];

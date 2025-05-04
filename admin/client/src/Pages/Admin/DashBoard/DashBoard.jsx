@@ -19,6 +19,7 @@ const Dashboard = () => {
             <NavLink to='/dashboard/students/' className='ed-dashboard-sidebar-navlink'><i class='bx bxs-graduation'></i>Students</NavLink>
             <NavLink to='/dashboard/staffs/' className='ed-dashboard-sidebar-navlink'><i class='bx bx-user' ></i>Staffs</NavLink>
             <NavLink to='/dashboard/events/' className='ed-dashboard-sidebar-navlink'><i class='bx bx-calendar' ></i>Events</NavLink>
+            <NavLink to='/dashboard/posts/' className='ed-dashboard-sidebar-navlink'><i class='bx bx-images'></i>Posts</NavLink>
             <NavLink to='/dashboard/settings/' className='ed-dashboard-sidebar-navlink'><i class='bx bx-cog' ></i>Settings</NavLink>
           </ul>
         </div>

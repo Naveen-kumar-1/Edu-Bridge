@@ -2,33 +2,44 @@ import React, { useState } from "react";
 import "./Events.css";
 import { upComingEvents } from "../../../assets/data";
 import CreateNewEvent from "../../../Components/Admin/CreateNewEvent/CreateNewEvent";
+import EditEvent from "../../../Components/Admin/EditEvent/EditEvent";
+import { toast } from "react-toastify";
 
 const Events = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [isCreateNewEvent, setIsCreateNewEvent] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [editEventData, setEditEventData] = useState(null);
 
   const totalPages = Math.ceil(upComingEvents.length / itemsPerPage);
 
   const formatDate = (timestamp) => {
     if (!timestamp) return "";
     const date = new Date(timestamp * 1000);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
+    return date.toISOString().split("T")[0]; // YYYY-MM-DD
   };
 
-  // Pagination logic
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentEvents = upComingEvents.slice(startIndex, endIndex);
-  const handleBackToEvents = () =>{
-    setIsCreateNewEvent(false)
-  } 
+
+  const handleBackToEvents = () => {
+    setIsCreateNewEvent(false);
+    setIsEdit(false);
+    setEditEventData(null);
+  };
+
+  const handleEditEvents = (event) => {
+    setEditEventData(event);
+    setIsEdit(true);
+  };
+  const handleDeleteEvent =(event_name)=>{
+    toast.success("Deleted successfully...!")
+  }
   return (
     <div className="ed-events">
-      {!isCreateNewEvent && (
+      {!isCreateNewEvent && !isEdit && (
         <>
           <div className="ed-event-top-bar">
             <div>
@@ -36,13 +47,13 @@ const Events = () => {
               <p>
                 Easily manage and update event information from one place.
                 Modify event names, dates, descriptions, and more to keep
-                students and staff informed with the latest updates. Make sure
-                every change reflects accurately to ensure a smooth experience
-                for all.
+                students and staff informed with the latest updates.
               </p>
             </div>
             <div className="create-new-event">
-              <button onClick={()=>setIsCreateNewEvent(true)}>Create New Event</button>
+              <button onClick={() => setIsCreateNewEvent(true)}>
+                Create New Event
+              </button>
             </div>
           </div>
 
@@ -50,11 +61,11 @@ const Events = () => {
             <table className="event-table">
               <thead>
                 <tr>
-                  <th>s.no</th>
-                  <th>title</th>
-                  <th>discription</th>
-                  <th>date</th>
-                  <th>action</th>
+                  <th>S.No</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Date</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -66,10 +77,13 @@ const Events = () => {
                     <td>{formatDate(event.date)}</td>
                     <td>
                       <span className="edit-btn">
-                        <i className="bx bx-edit"></i>
+                        <i
+                          className="bx bx-edit"
+                          onClick={() => handleEditEvents(event)}
+                        ></i>
                       </span>
                       <span className="delete-btn">
-                        <i className="bx bx-trash"></i>
+                        <i className="bx bx-trash" onClick={()=>handleDeleteEvent(event.event_name)}></i>
                       </span>
                     </td>
                   </tr>
@@ -108,9 +122,14 @@ const Events = () => {
           </div>
         </>
       )}
-      {isCreateNewEvent && (<>
-      <CreateNewEvent backToEnevts = {handleBackToEvents}/>
-      </>)}
+
+      {isCreateNewEvent && !isEdit && (
+        <CreateNewEvent backToEnevts={handleBackToEvents} />
+      )}
+
+      {isEdit && editEventData && (
+        <EditEvent editData={editEventData} backToEnevts={handleBackToEvents} />
+      )}
     </div>
   );
 };

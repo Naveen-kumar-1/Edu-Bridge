@@ -1,0 +1,67 @@
+.ed-edit-event{
+    width: 100%;
+}
+.ed-edit-event .top-bar{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.ed-edit-event .top-bar .left .bx{
+    font-size: 22px;
+    background: #3d3d3d;
+    color: #fff;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+.ed-edit-event .top-bar .right p{
+    opacity: .7;
+    color: #333;
+    width: 50%;
+    margin-top: 10px;
+
+}
+.form-section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.form-section form{
+    border-style: solid;
+    flex-direction: column;
+    border-width: 0;
+    border: 1px solid #e5e7eb;
+    border-color: #e5e7eb;
+    padding: 20px;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    border-radius: 10px;
+    width: 50%;
+}
+.form-section form .input-fields{
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.save-btn{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin: 10px;
+}
+.save-btn button{
+    padding: 10px 20px;
+    border: 0;
+    outline: none;
+    background: #000;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+}

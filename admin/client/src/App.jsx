@@ -12,6 +12,7 @@ import Students from "./Pages/Admin/Students/Students";
 import Staffs from "./Pages/Admin/Staffs/Staffs";
 import Events from "./Pages/Admin/Events/Events";
 import Settings from "./Pages/Admin/Settings/Settings";
+import Posts from "./Pages/Admin/Posts/Posts";
 
 const App = () => {
   const { isUserLogin, isUserRegistred } = useContext(AppContext);
@@ -45,6 +46,7 @@ const App = () => {
               <Route path="students" element={<Students/>}/>
               <Route path="staffs" element={<Staffs/>}/>
               <Route path="events" element={<Events/>}/>
+              <Route path="posts" element={<Posts/>}/>
               <Route path="settings" element={<Settings/>}/>
               </Route>
             </>
