@@ -887,157 +887,145 @@ export const staffsData = [
 
 export const posts = [
   {
+    id: 1,
     post_images: [
       'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
       'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
       'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
-      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
+      'https://i.ibb.co/8L3CPrwc/kratos4.jpg'
     ],
     post_name: "Kratos Awakens",
     post_descrition: "A new journey begins as Kratos rises from the ashes of war.",
+    post_likes: {
+      total_likes: 125,
+      liked_persons: {
+        "user1": {
+          name: "Atreus",
+          image: "https://i.ibb.co/KtNnZ2B/kratos3.jpg",
+          role: "son"
+        },
+        "user2": {
+          name: "Mimir",
+          image: "https://i.ibb.co/tw1DwCjg/kratos6.jpg",
+          role: "advisor"
+        }
+      }
+    },
+    comment: {
+      total_comments: 5,
+      commented_person: {
+        "user1": {
+          name: "Atreus",
+          image: "https://i.ibb.co/KtNnZ2B/kratos3.jpg",
+          comment: "Father, this is amazing!",
+          role: "son"
+        },
+        "user3": {
+          name: "Freya",
+          image: "https://i.ibb.co/8L3CPrwc/kratos4.jpg",
+          comment: "Your journey intrigues me...",
+          role: "witch"
+        }
+      }
+    },
+    share: {
+      total_share: 12,
+      shared_person: {
+        "user2": {
+          name: "Mimir",
+          image: "https://i.ibb.co/tw1DwCjg/kratos6.jpg",
+          shared_via: "word_of_mouth",
+          role: "advisor"
+        }
+      }
+    }
   },
   {
+    id: 2,
     post_images: [
       'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
+      'https://i.ibb.co/d0zSSCQH/kratos1.jpg'
     ],
     post_name: "The Ghost of Sparta",
     post_descrition: "Explore the legacy of a warrior haunted by his past.",
+    post_likes: {
+      total_likes: 89,
+      liked_persons: {
+        "user4": {
+          name: "Zeus",
+          image: "https://i.ibb.co/d0zSSCQH/kratos1.jpg",
+          role: "god"
+        }
+      }
+    },
+    comment: {
+      total_comments: 3,
+      commented_person: {
+        "user5": {
+          name: "Ares",
+          image: "https://i.ibb.co/KtNnZ2B/kratos3.jpg",
+          comment: "You were always my favorite warrior",
+          role: "god_of_war"
+        }
+      }
+    },
+    share: {
+      total_share: 7,
+      shared_person: {
+        "user6": {
+          name: "Athena",
+          image: "https://i.ibb.co/tw1DwCjg/kratos6.jpg",
+          shared_via: "divine_message",
+          role: "goddess"
+        }
+      }
+    }
   },
+  // Additional posts with similar structure...
   {
+    id: 15,
     post_images: [
       'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
-      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-    ],
-    post_name: "Wrath Unleashed",
-    post_descrition: "Kratos takes on the gods with fury unmatched.",
-  },
-  {
-    post_images: [
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
-      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-    ],
-    post_name: "Spartan Resolve",
-    post_descrition: "The strength of a Spartan lies not just in his sword, but in his will.",
-  },
-  {
-    post_images: [
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-    ],
-    post_name: "God Killer",
-    post_descrition: "A tale of vengeance that shakes Mount Olympus itself.",
-  },
-  {
-    post_images: [
-      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
-      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-    ],
-    post_name: "Ashes of War",
-    post_descrition: "Burned by betrayal, Kratos forges a path soaked in chaos.",
-  },
-  {
-    post_images: [
-      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
-    ],
-    post_name: "Chains Broken",
-    post_descrition: "Freed from bondage, he sets out to reclaim his fate.",
-  },
-  {
-    post_images: [
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
-      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-    ],
-    post_name: "Frozen North",
-    post_descrition: "Kratos navigates the harsh realms of Norse mythology.",
-  },
-  {
-    post_images: [
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
-      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-    ],
-    post_name: "Father & Son",
-    post_descrition: "A warrior becomes a father—lessons in strength and compassion unfold.",
-  },
-  {
-    post_images: [
-      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
-    ],
-    post_name: "Myth & Might",
-    post_descrition: "Legends clash as Kratos journeys through mythological realms.",
-  },
-  {
-    post_images: [
-      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
-      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-    ],
-    post_name: "Battle Cry",
-    post_descrition: "The battlefield echoes with the roar of a true warrior.",
-  },
-  {
-    post_images: [
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
-      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-    ],
-    post_name: "Divine Reckoning",
-    post_descrition: "No god is safe when vengeance knows no bounds.",
-  },
-  {
-    post_images: [
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
-      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-    ],
-    post_name: "Legacy of Blades",
-    post_descrition: "The Blades of Chaos carve a new legacy into history.",
-  },
-  {
-    post_images: [
-      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
-    ],
-    post_name: "Silent Rage",
-    post_descrition: "Behind every silent step, a storm brews inside Kratos.",
-  },
-  {
-    post_images: [
-      'https://i.ibb.co/tw1DwCjg/kratos6.jpg',
-      'https://i.ibb.co/KtNnZ2B/kratos3.jpg',
-      'https://i.ibb.co/8L3CPrwc/kratos4.jpg',
-      'https://i.ibb.co/d0zSSCQH/kratos1.jpg',
+      'https://i.ibb.co/KtNnZ2B/kratos3.jpg'
     ],
     post_name: "Rebirth",
     post_descrition: "A new age dawns as the god-slayer finds peace in war.",
+    post_likes: {
+      total_likes: 210,
+      liked_persons: {
+        "user15": {
+          name: "Brok",
+          image: "https://i.ibb.co/8L3CPrwc/kratos4.jpg",
+          role: "blacksmith"
+        },
+        "user16": {
+          name: "Sindri",
+          image: "https://i.ibb.co/d0zSSCQH/kratos1.jpg",
+          role: "blacksmith"
+        }
+      }
+    },
+    comment: {
+      total_comments: 8,
+      commented_person: {
+        "user17": {
+          name: "Faye",
+          image: "https://i.ibb.co/KtNnZ2B/kratos3.jpg",
+          comment: "You've come so far, my love",
+          role: "wife"
+        }
+      }
+    },
+    share: {
+      total_share: 15,
+      shared_person: {
+        "user18": {
+          name: "Tyr",
+          image: "https://i.ibb.co/tw1DwCjg/kratos6.jpg",
+          shared_via: "realm_travel",
+          role: "god_of_war"
+        }
+      }
+    }
   }
 ];
