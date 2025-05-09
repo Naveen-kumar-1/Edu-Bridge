@@ -129,7 +129,7 @@ const EditPost = ({ post, setIsEdit }) => {
   
       // Save to localStorage
       localStorage.setItem('posts', JSON.stringify(updatedPosts));
-    
+   console.log(updatedPost)
       toast.success("Post saved successfully!");
       
     } catch (error) {
@@ -219,144 +219,138 @@ const EditPost = ({ post, setIsEdit }) => {
             </div>
           </div>
           <div className="post-like-comment-share">
-            <div className="post-like-comment-share-navbar">
-              <p
-                className={`like ${
-                  postLikeCommentShareState === "like" ? "active" : ""
-                }`}
-                onClick={() => setPostLikeCommentShareState("like")}
-              >
-                <i className="bx bx-heart"></i>Like
-              </p>
+  <div className="post-like-comment-share-navbar">
+    <button
+      className={`like-btn ${postLikeCommentShareState === "like" ? "active" : ""}`}
+      onClick={() => setPostLikeCommentShareState("like")}
+    >
+      <i className="bx bx-heart"></i> Like ({formData.post_likes?.total_likes || 0})
+    </button>
 
-              <p
-                className={`comment ${
-                  postLikeCommentShareState === "comment" ? "active" : ""
-                }`}
-                onClick={() => setPostLikeCommentShareState("comment")}
-              >
-                <i className="bx bx-message-rounded-dots"></i>Comment
-              </p>
+    <button
+      className={`comment-btn ${postLikeCommentShareState === "comment" ? "active" : ""}`}
+      onClick={() => setPostLikeCommentShareState("comment")}
+    >
+      <i className="bx bx-message-rounded-dots"></i> Comment ({Object.keys(comments).length || 0})
+    </button>
 
-              <p
-                className={`share ${
-                  postLikeCommentShareState === "share" ? "active" : ""
-                }`}
-                onClick={() => setPostLikeCommentShareState("share")}
-              >
-                <i className="bx bx-share"></i>Share
-              </p>
-            </div>
-            <div className="post-like-comment-share-display-content">
-              {postLikeCommentShareState === "like" && (
-                <div className="like-display-content">
-                  <div className="like-display-content-title">
-                    <p>People who liked this post</p>
-                    <p>{formData.post_likes?.total_likes} Likes</p>
-                  </div>
+    <button
+      className={`share-btn ${postLikeCommentShareState === "share" ? "active" : ""}`}
+      onClick={() => setPostLikeCommentShareState("share")}
+    >
+      <i className="bx bx-share"></i> Share ({formData.share?.total_share || 0})
+    </button>
+  </div>
 
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>S.N</th>
-                        <th>Name</th>
-                        <th>Role</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {formData.post_likes?.liked_persons &&
-                        Object.entries(formData.post_likes.liked_persons).map(
-                          ([id, person], index) => (
-                            <tr key={id}>
-                              <td>{index + 1}</td>
-                              <td>
-                                <img src={person.image} alt={person.name} />
-                                {person.name}
-                              </td>
-                              <td>{person.role}</td>
-                            </tr>
-                          )
-                        )}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-
-              {postLikeCommentShareState === "comment" && (
-                <div className="comment-display-content">
-                  <div className="like-display-content-title">
-                    <p>People who commented on this post</p>
-                    <p>{Object.keys(comments).length} Comments</p>
-                  </div>
-
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>S.N</th>
-                        <th>Name</th>
-                        <th>Comment</th>
-                        <th>Role</th>
-                        <th>Delete</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {Object.entries(comments).map(([id, person], index) => (
-                        <tr key={id}>
-                          <td>{index + 1}</td>
-                          <td>
-                            <img src={person.image} alt={person.name} />
-                            {person.name}
-                          </td>
-                          <td>{person.comment}</td>
-                          <td>{person.role}</td>
-                          <td>
-                           
-                              <i   onClick={() => handleDeleteComment(id)} className='bx bx-trash trash-icon'></i>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-
-              {postLikeCommentShareState === "share" && (
-                <div className="share-display-content">
-                  <div className="like-display-content-title">
-                    <p>People who shared this post</p>
-                    <p>{formData.share?.total_share} Shares</p>
-                  </div>
-
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>S.N</th>
-                        <th>Name</th>
-                        <th>Shared Via</th>
-                        <th>Role</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {formData.share?.shared_person &&
-                        Object.entries(formData.share.shared_person).map(
-                          ([id, person], index) => (
-                            <tr key={id}>
-                              <td>{index + 1}</td>
-                              <td>
-                                <img src={person.image} alt={person.name} />
-                                {person.name}
-                              </td>
-                              <td>{person.shared_via}</td>
-                              <td>{person.role}</td>
-                            </tr>
-                          )
-                        )}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div>
+  <div className="post-like-comment-share-display-content">
+    {postLikeCommentShareState === "like" && (
+      <div className="like-display-content">
+        <div className="engagement-header">
+          <h3>People who liked this post</h3>
+          <span className="count-badge">{formData.post_likes?.total_likes || 0} Likes</span>
+        </div>
+        
+        <div className="engagement-list-container">
+          <div className="engagement-list-header">
+            <span className="serial-no">#</span>
+            <span className="user-info">User</span>
+            <span className="user-role">Role</span>
           </div>
+          
+          <div className="engagement-list-scrollable">
+            {formData.post_likes?.liked_persons && 
+              Object.entries(formData.post_likes.liked_persons).map(([id, person], index) => (
+                <div className="engagement-item" key={id}>
+                  <span className="serial-no">{index + 1}</span>
+                  <div className="user-info">
+                    <img src={person.image} alt={person.name} className="user-avatar" />
+                    <span className="user-name">{person.name}</span>
+                  </div>
+                  <span className="user-role">{person.role}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    )}
+
+    {postLikeCommentShareState === "comment" && (
+      <div className="comment-display-content">
+        <div className="engagement-header">
+          <h3>Comments on this post</h3>
+          <span className="count-badge">{Object.keys(comments).length || 0} Comments</span>
+        </div>
+        
+        <div className="engagement-list-container">
+          <div className="engagement-list-header">
+            <span className="serial-no">#</span>
+            <span className="user-info">User</span>
+            <span className="comment-text">Comment</span>
+            <span className="user-role">Role</span>
+            <span className="action">Action</span>
+          </div>
+          
+          <div className="engagement-list-scrollable">
+            {Object.entries(comments).map(([id, person], index) => (
+              <div className="engagement-item" key={id}>
+                <span className="serial-no">{index + 1}</span>
+                <div className="user-info">
+                  <img src={person.image} alt={person.name} className="user-avatar" />
+                  <span className="user-name">{person.name}</span>
+                </div>
+                <span className="comment-text">{person.comment}</span>
+                <span className="user-role">{person.role}</span>
+                <span className="action">
+                  <button 
+                    className="delete-btn"
+                    onClick={() => handleDeleteComment(id)}
+                  >
+                    <i className='bx bx-trash'></i>
+                  </button>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )}
+
+    {postLikeCommentShareState === "share" && (
+      <div className="share-display-content">
+        <div className="engagement-header">
+          <h3>People who shared this post</h3>
+          <span className="count-badge">{formData.share?.total_share || 0} Shares</span>
+        </div>
+        
+        <div className="engagement-list-container">
+          <div className="engagement-list-header">
+            <span className="serial-no">#</span>
+            <span className="user-info">User</span>
+            <span className="shared-via">Shared Via</span>
+            <span className="user-role">Role</span>
+          </div>
+          
+          <div className="engagement-list-scrollable">
+            {formData.share?.shared_person && 
+              Object.entries(formData.share.shared_person).map(([id, person], index) => (
+                <div className="engagement-item" key={id}>
+                  <span className="serial-no">{index + 1}</span>
+                  <div className="user-info">
+                    <img src={person.image} alt={person.name} className="user-avatar" />
+                    <span className="user-name">{person.name}</span>
+                  </div>
+                  <span className="shared-via">{person.shared_via}</span>
+                  <span className="user-role">{person.role}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+</div>
         </div>
       </div>
     </div>

@@ -897,7 +897,7 @@ export const posts = [
     post_name: "Kratos Awakens",
     post_descrition: "A new journey begins as Kratos rises from the ashes of war.",
     post_likes: {
-      total_likes: 125,
+      total_likes: 25,
       liked_persons: {
         "user1": {
           name: "Atreus",
@@ -905,6 +905,36 @@ export const posts = [
           role: "son"
         },
         "user2": {
+          name: "Atreus",
+          image: "https://i.ibb.co/KtNnZ2B/kratos3.jpg",
+          role: "son"
+        },
+        "user3": {
+          name: "Atreus",
+          image: "https://i.ibb.co/KtNnZ2B/kratos3.jpg",
+          role: "son"
+        },
+        "user4": {
+          name: "Atreus",
+          image: "https://i.ibb.co/KtNnZ2B/kratos3.jpg",
+          role: "son"
+        },
+        "user5": {
+          name: "Atreus",
+          image: "https://i.ibb.co/KtNnZ2B/kratos3.jpg",
+          role: "son"
+        },
+        "user6": {
+          name: "Atreus",
+          image: "https://i.ibb.co/KtNnZ2B/kratos3.jpg",
+          role: "son"
+        },
+        "user7": {
+          name: "Atreus",
+          image: "https://i.ibb.co/KtNnZ2B/kratos3.jpg",
+          role: "son"
+        },
+        "user8": {
           name: "Mimir",
           image: "https://i.ibb.co/tw1DwCjg/kratos6.jpg",
           role: "advisor"

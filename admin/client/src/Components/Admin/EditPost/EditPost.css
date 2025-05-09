@@ -171,7 +171,6 @@
     border-radius: 12px;
     padding: 20px;
     width: 100%;
-    margin-top: 20px;
     max-height: 300px; /* limit height */
     overflow-y: auto;  /* vertical scroll */
     overflow-x: hidden; /* hide horizontal scroll */
@@ -362,138 +361,181 @@
       font-size: 10px;
     }
   }
-  /* Table Container */
-.post-like-comment-share-display-content {
-  width: 100%;
-  margin-top: 20px;
-  overflow-x: auto;
+  /* Engagement Section Styles */
+.post-like-comment-share {
+  border-top: 1px solid #e0e0e0;
+  margin-top: 1rem;
+  /* padding-top: 1rem; */
 }
 
-/* Base Table Styles */
-.post-like-comment-share-display-content table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.post-like-comment-share-navbar {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.post-like-comment-share-navbar button {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.post-like-comment-share-navbar button:hover {
+  background: #f5f5f5;
+}
+
+.post-like-comment-share-navbar button.active {
+  background: #f0f0f0;
+  font-weight: 600;
+}
+
+.post-like-comment-share-navbar button i {
+  font-size: 1.1rem;
+}
+
+/* Engagement Content Styles */
+.engagement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.engagement-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.count-badge {
+  background: #f0f0f0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.engagement-list-container {
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
   overflow: hidden;
 }
 
-/* Table Header */
-.post-like-comment-share-display-content thead {
-  background-color: #3a3a3a;
-  color: white;
-}
-
-.post-like-comment-share-display-content th {
-  padding: 12px 15px;
-  text-align: left;
+.engagement-list-header {
+  display: flex;
+  background: #f9f9f9;
+  padding: 0.75rem 1rem;
   font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 0.5px;
-}
-
-/* Table Body */
-.post-like-comment-share-display-content tbody tr {
+  font-size: 0.85rem;
   border-bottom: 1px solid #e0e0e0;
-  transition: background-color 0.2s ease;
 }
 
-.post-like-comment-share-display-content tbody tr:nth-child(even) {
-  background-color: #f8f8f8;
+.engagement-list-scrollable {
+  max-height: 300px;
+  overflow-y: auto;
 }
 
-.post-like-comment-share-display-content tbody tr:hover {
-  background-color: #f0f0f0;
+.engagement-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s ease;
 }
 
-.post-like-comment-share-display-content td {
-  padding: 12px 15px;
-  font-size: 0.9rem;
-  color: #333;
+.engagement-item:last-child {
+  border-bottom: none;
 }
 
-/* User Image Cells */
-.post-like-comment-share-display-content td img {
-  width: 36px;
-  height: 36px;
+.engagement-item:hover {
+  background: #f9f9f9;
+}
+
+/* Column Sizes */
+.serial-no {
+  width: 40px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.user-info {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 10px;
-  vertical-align: middle;
-  border: 2px solid #e0e0e0;
 }
 
-/* Action Icons */
-.trash-icon {
-  color: #e74c3c;
-  font-size: 1.2rem;
+.user-name {
+  font-weight: 500;
+}
+
+.user-role {
+  flex: 1;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.comment-text {
+  flex: 3;
+  font-size: 0.9rem;
+  padding-right: 1rem;
+}
+
+.shared-via {
+  flex: 1;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+}
+
+.action {
+  width: 60px;
+  text-align: center;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: #ff4d4f;
   cursor: pointer;
-  transition: all 0.2s ease;
-  padding: 5px;
-  border-radius: 4px;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
 }
 
-.trash-icon:hover {
-  color: #c0392b;
-  background-color: rgba(231, 76, 60, 0.1);
+.delete-btn:hover {
   transform: scale(1.1);
-}
-
-/* Title Section */
-.like-display-content-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 15px;
-}
-
-.like-display-content-title p:first-child {
-  font-weight: 600;
-  color: #333;
-}
-
-.like-display-content-title p:last-child {
-  background-color: #3a3a3a;
-  color: white;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 0.8rem;
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-  .post-like-comment-share-display-content table {
+  .post-like-comment-share-navbar {
+    gap: 0.5rem;
+  }
+  
+  .post-like-comment-share-navbar button {
+    padding: 0.5rem;
     font-size: 0.8rem;
   }
   
-  .post-like-comment-share-display-content th,
-  .post-like-comment-share-display-content td {
-    padding: 8px 10px;
+  .comment-text {
+    display: none;
   }
   
-  .post-like-comment-share-display-content td img {
-    width: 28px;
-    height: 28px;
+  .engagement-list-header .comment-text,
+  .engagement-item .comment-text {
+    display: none;
   }
-  
-  .trash-icon {
-    font-size: 1rem;
-  }
-}
-
-/* Specific Table Variations */
-.comment-display-content table {
-  background-color: #f9f9f9;
-}
-
-.share-display-content table {
-  background-color: #f5f5f5;
-}
-
-.like-display-content table {
-  background-color: #f0f0f0;
 }

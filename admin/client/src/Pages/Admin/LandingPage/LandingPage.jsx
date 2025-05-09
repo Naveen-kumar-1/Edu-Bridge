@@ -1,6 +1,6 @@
 import React from 'react'
 import './LandingPage.css'
-import banner from '../../../assets/banner.png'
+import banner from '../../../assets/landing_banner.jpg'
 import { motion } from "framer-motion"
 import { useNavigate } from 'react-router-dom'
 import NavBar from '../../../Components/Admin/NavBar/NavBar'
@@ -8,9 +8,10 @@ import NavBar from '../../../Components/Admin/NavBar/NavBar'
 const LandingPage = () => {
   const navigate = useNavigate();
   return (
-   
+   <>
+    <NavBar/>
     <div className='eb-landing-container'>
-      <NavBar/>
+     
       <div>
       <motion.div 
         className='eb-landing-content'
@@ -66,6 +67,7 @@ const LandingPage = () => {
 
       </div>
     </div>
+    </>
   )
 }
 
