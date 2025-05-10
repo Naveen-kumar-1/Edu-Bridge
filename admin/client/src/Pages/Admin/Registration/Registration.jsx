@@ -7,14 +7,21 @@ import NavBar from "../../../Components/Admin/NavBar/NavBar";
 import TermsAndConditionsModal from "../../../Components/Admin/TermsAndConditionModal/TermsAndConditionModal";
 import TwoStepAuthModal from "../../../Components/Admin/TwoStepAuthModal/TwoStepAuthModal";
 import { AppContext } from "../../../Context/AppContext";
+import axios from "axios";
+import dotenv from "dotenv";
+
 const Registration = () => {
   const [formState, setFormState] = useState(1);
-  const [verificationCode, setVerificationCode] = useState("");
+  const [verificationCode, setVerificationCode] = useState(false);
   const [isValidCode, setIsCodeValid] = useState(false);
+  const [otpSubmitting, setOtpSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState("password");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const { setIsUserRegistred ,isUserRegistred} = useContext(AppContext);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitVerify, setSubmitVerify] = useState(false);
+  const [resendOtpSubmitting, setResendOtpSubmitting] = useState(false);
+  const { backendUrl } = useContext(AppContext);
 
   // Function to open the modal
   const openAuthModal = () => {
@@ -154,11 +161,7 @@ const Registration = () => {
       } else if (verificationCodeForm.entredVerificationCode.length !== 6) {
         currentErrors.entredVerificationCode =
           "Verification code must be exactly 6 characters!";
-      } else if (
-        verificationCode != verificationCodeForm.entredVerificationCode
-      )
-        currentErrors.entredVerificationCode =
-          "Code not match! please try again";
+      }
     }
     if (formState === 5) {
       if (!passwordForm.password) {
@@ -198,28 +201,68 @@ const Registration = () => {
     setFormState((prev) => Math.max(prev - 1, 1));
   };
   //   Send verification code
-  const sendVerificationCode = () => {
-    toast.success("Code send to the email successfully!");
-    const charecters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let verificationCode = "";
-    for (let i = 0; i < 6; i++) {
-      const randomCode = Math.floor(Math.random() * charecters.length);
-      verificationCode += charecters[randomCode];
-    }
-    console.log(verificationCode);
+  const sendVerificationCode = async () => {
+    if (otpSubmitting) return;
+    setOtpSubmitting(true);
 
-    setVerificationCode(verificationCode);
+    try {
+      if (!contactFormData.departmentEmail) {
+        toast.error("Department email is missing.");
+        setOtpSubmitting(false); // Reset here too
+        return;
+      }
+
+      const emailResponse = await axios.post(
+        `${backendUrl}/api/entrance/send-mail`,
+        {
+          emailtype: "sendregistermail",
+          email: contactFormData.departmentEmail,
+        }
+      );
+
+      if (emailResponse.data?.success) {
+        setVerificationCode(true);
+        toast.success("OTP sent successfully!");
+      } else {
+        toast.error(emailResponse.data.message || "Failed to send the OTP.");
+      }
+    } catch (error) {
+      toast.error("An error occurred while sending the OTP.");
+    } finally {
+      setOtpSubmitting(false);
+    }
   };
+
   // Check verification code
-  const checkVerificationCode = (e) => {
+  const checkVerificationCode = async (e) => {
+    if (submitVerify) return;
+    setSubmitVerify(true);
     e.preventDefault();
-    if (validateForm()) {
-      setIsCodeValid(true);
-      toast.success("Verification successful!");
-    } else {
+    try {
+      if (!validateForm()) {
+        toast.error("Please enter a valid verification code.");
+        return;
+      }
+      const response = await axios.post(
+        `${backendUrl}/api/entrance/verify-code`,
+        {
+          email: contactFormData.departmentEmail,
+          code: verificationCodeForm.entredVerificationCode,
+        }
+      );
+
+      if (response.data.success) {
+        toast.success(response.data.message || "Verification successful!");
+        setIsCodeValid(true);
+      } else {
+        toast.error("An error occurred. Please fix the issue to continue.");
+        setIsCodeValid(false);
+      }
+    } catch (error) {
       toast.error("An error occurred. Please fix the issue to continue.");
       setIsCodeValid(false);
+    } finally {
+      setSubmitVerify(false);
     }
   };
   // Complete verification
@@ -227,44 +270,42 @@ const Registration = () => {
   const completeRegistration = async (e) => {
     e.preventDefault();
 
+    // Prevent multiple submissions
+    if (isSubmitting) return;
+
     if (validateForm()) {
-      // Combine all the form data
-      const allFormData = {
-        ...basicFormData,
-        ...contactFormData,
-        ...headFormData,
-        ...passwordForm,
-      };
+      setIsSubmitting(true); // Disable the button
 
       try {
-      
-        localStorage.setItem(
-          "registeredDepartmentData",
-          JSON.stringify(allFormData)
-        );
-       
+        const allFormData = {
+          ...basicFormData,
+          ...contactFormData,
+          ...headFormData,
+          ...passwordForm,
+        };
 
-        // Make the API call to your server for registration
-        if (allFormData) {
-          localStorage.setItem('isRegistered',true)
-          setIsUserRegistred(true)
-          
-          // Success case: Navigate to login
-          toast.success("Registration completed successfully.");
+        const response = await axios.post(
+          `${backendUrl}/api/entrance/register`,
+          allFormData
+        );
+
+        if (response?.data?.message) {
+          toast.success(response.data.message);
           navigate("/login");
         } else {
-          // Error case: Display error message from the response
-          toast.error(result.error || "Registration failed");
+          toast.error("Something went wrong!");
         }
       } catch (error) {
         console.log(error);
-
-        // Catch any other errors that occur during the API call
-        toast.error("An error occurred. Please try again.");
+        toast.error(
+          error.response?.data?.message ||
+            "An error occurred. Please try again."
+        );
+      } finally {
+        setIsSubmitting(false); // Re-enable the button
       }
     } else {
-      // Validation failed case
-      toast.error("An error occurred. Please fix the issue to continue.");
+      toast.error("Please fix all validation errors before submitting.");
     }
   };
 
@@ -287,372 +328,448 @@ const Registration = () => {
       }
     }
   };
+  const reSendOtp = async () => {
+    if (resendOtpSubmitting) return;
+    setResendOtpSubmitting(true);
+
+    try {
+      if (!contactFormData.departmentEmail) {
+        toast.error("Department email is missing.");
+        setOtpSubmitting(false); // Reset here too
+        return;
+      }
+
+      const emailResponse = await axios.post(
+        `${backendUrl}/api/entrance/send-mail`,
+        {
+          emailtype: "resendregistermail",
+          email: contactFormData.departmentEmail,
+        }
+      );
+
+      if (emailResponse.data?.success) {
+        setResendOtpSubmitting(true);
+        toast.success("OTP sent successfully!");
+      } else {
+        toast.error(emailResponse.data.message || "Failed to send the OTP.");
+      }
+    } catch (error) {
+      toast.error("An error occurred while sending the OTP.");
+    } finally {
+      setResendOtpSubmitting(false);
+    }
+  };
 
   return (
     <>
-    <NavBar />
-    <div className="ed-registration-container">
-   
-      <h1>Register your Department</h1>
-      <div className="ed-registration-form">
-        <div className="top-navigation">
-          <span
-            className="navigations"
-            onClick={() => changePageUsingNavigation(1)}
-            style={formState === 1 ? { background: "#fff" } : {}}
-          >
-            Basic info
-          </span>
-          <span
-            className="navigations"
-            onClick={() => changePageUsingNavigation(2)}
-            style={formState === 2 ? { background: "#fff" } : {}}
-          >
-            Contact Details
-          </span>
-          <span
-            className="navigations"
-            onClick={() => changePageUsingNavigation(3)}
-            style={formState === 3 ? { background: "#fff" } : {}}
-          >
-            HOD Details
-          </span>
-          <span
-            className="navigations"
-            onClick={() => changePageUsingNavigation(4)}
-            style={formState === 4 ? { background: "#fff" } : {}}
-          >
-            Verification
-          </span>
-        </div>
-        <form onSubmit={completeRegistration}>
-          {formState === 1 && (
-            <div>
-              <h2>Basic Information</h2>
-              <div className="input-fields">
-                <label>
-                  Department name: <p className="important-mark">*</p>{" "}
-                </label>
-                <input
-                  type="text"
-                  name="departmentName"
-                  onChange={handleOnChange}
-                  value={basicFormData.departmentName}
-                  placeholder="eg.., Computer science"
-                />
-                {error.departmentName && (
-                  <span className="error-message">{error.departmentName}</span>
-                )}
+      <NavBar />
+      <div className="ed-registration-container">
+        <h1>Register your Department</h1>
+        <div className="ed-registration-form">
+          <div className="top-navigation">
+            <span
+              className="navigations"
+              onClick={() => changePageUsingNavigation(1)}
+              style={formState === 1 ? { background: "#fff" } : {}}
+            >
+              Basic info
+            </span>
+            <span
+              className="navigations"
+              onClick={() => changePageUsingNavigation(2)}
+              style={formState === 2 ? { background: "#fff" } : {}}
+            >
+              Contact Details
+            </span>
+            <span
+              className="navigations"
+              onClick={() => changePageUsingNavigation(3)}
+              style={formState === 3 ? { background: "#fff" } : {}}
+            >
+              HOD Details
+            </span>
+            <span
+              className="navigations"
+              onClick={() => changePageUsingNavigation(4)}
+              style={formState === 4 ? { background: "#fff" } : {}}
+            >
+              Verification
+            </span>
+          </div>
+          <form onSubmit={completeRegistration}>
+            {formState === 1 && (
+              <div>
+                <h2>Basic Information</h2>
+                <div className="input-fields">
+                  <label>
+                    Department name: <p className="important-mark">*</p>{" "}
+                  </label>
+                  <input
+                    type="text"
+                    name="departmentName"
+                    onChange={handleOnChange}
+                    value={basicFormData.departmentName}
+                    placeholder="eg.., Computer science"
+                  />
+                  {error.departmentName && (
+                    <span className="error-message">
+                      {error.departmentName}
+                    </span>
+                  )}
+                </div>
+                <div className="input-fields">
+                  <label>
+                    College name:<p className="important-mark">*</p>{" "}
+                  </label>
+                  <input
+                    type="text"
+                    name="collegeName"
+                    onChange={handleOnChange}
+                    value={basicFormData.collegeName}
+                    placeholder="eg.., MIT"
+                  />
+                  {error.collegeName && (
+                    <span className="error-message">{error.collegeName}</span>
+                  )}
+                </div>
+                <div className="input-fields">
+                  <label>
+                    University name:<p className="important-mark">*</p>{" "}
+                  </label>
+                  <input
+                    type="text"
+                    name="universityName"
+                    onChange={handleOnChange}
+                    value={basicFormData.universityName}
+                    placeholder="eg.., State University"
+                  />
+                  {error.universityName && (
+                    <span className="error-message">
+                      {error.universityName}
+                    </span>
+                  )}
+                </div>
               </div>
-              <div className="input-fields">
-                <label>
-                  College name:<p className="important-mark">*</p>{" "}
-                </label>
-                <input
-                  type="text"
-                  name="collegeName"
-                  onChange={handleOnChange}
-                  value={basicFormData.collegeName}
-                  placeholder="eg.., MIT"
-                />
-                {error.collegeName && (
-                  <span className="error-message">{error.collegeName}</span>
-                )}
-              </div>
-              <div className="input-fields">
-                <label>
-                  University name:<p className="important-mark">*</p>{" "}
-                </label>
-                <input
-                  type="text"
-                  name="universityName"
-                  onChange={handleOnChange}
-                  value={basicFormData.universityName}
-                  placeholder="eg.., State University"
-                />
-                {error.universityName && (
-                  <span className="error-message">{error.universityName}</span>
-                )}
-              </div>
-            </div>
-          )}
+            )}
 
-          {formState === 2 && (
-            <div>
-              <h2>Contact Details</h2>
-              <div className="input-fields">
-                <label>
-                  Department email address:<p className="important-mark">*</p>{" "}
-                </label>
-                <input
-                  type="email"
-                  name="departmentEmail"
-                  onChange={handleOnChange}
-                  value={contactFormData.departmentEmail}
-                  placeholder="eg.., example@edu.in"
-                />
-                {error.departmentEmail && (
-                  <span className="error-message">{error.departmentEmail}</span>
-                )}
+            {formState === 2 && (
+              <div>
+                <h2>Contact Details</h2>
+                <div className="input-fields">
+                  <label>
+                    Department email address:<p className="important-mark">*</p>{" "}
+                  </label>
+                  <input
+                    type="email"
+                    name="departmentEmail"
+                    onChange={handleOnChange}
+                    value={contactFormData.departmentEmail}
+                    placeholder="eg.., example@edu.in"
+                  />
+                  {error.departmentEmail && (
+                    <span className="error-message">
+                      {error.departmentEmail}
+                    </span>
+                  )}
+                </div>
+                <div className="input-fields">
+                  <label>
+                    Department Contact number:
+                    <p className="important-mark">*</p>{" "}
+                  </label>
+                  <input
+                    type="text"
+                    name="departmentPhone"
+                    onChange={handleOnChange}
+                    value={contactFormData.departmentPhone}
+                    placeholder="eg.., 432 567 890"
+                  />
+                  {error.departmentPhone && (
+                    <span className="error-message">
+                      {error.departmentPhone}
+                    </span>
+                  )}
+                </div>
+                <div className="input-fields">
+                  <label>
+                    Department Location:<p className="important-mark">*</p>{" "}
+                  </label>
+                  <input
+                    type="text"
+                    name="departmentAddress"
+                    onChange={handleOnChange}
+                    value={contactFormData.departmentAddress}
+                    placeholder="eg.., Happie Street"
+                  />
+                  {error.departmentAddress && (
+                    <span className="error-message">
+                      {error.departmentAddress}
+                    </span>
+                  )}
+                </div>
+                <div className="input-fields">
+                  <label>Department website (if applicable): </label>
+                  <input
+                    type="text"
+                    name="departmentWebsite"
+                    onChange={handleOnChange}
+                    value={contactFormData.departmentWebsite}
+                    placeholder="eg.., example.in"
+                  />
+                  {error.departmentWebsite && (
+                    <span className="error-message">
+                      {error.departmentWebsite}
+                    </span>
+                  )}
+                </div>
               </div>
-              <div className="input-fields">
-                <label>
-                  Department Contact number:<p className="important-mark">*</p>{" "}
-                </label>
-                <input
-                  type="text"
-                  name="departmentPhone"
-                  onChange={handleOnChange}
-                  value={contactFormData.departmentPhone}
-                  placeholder="eg.., 432 567 890"
-                />
-                {error.departmentPhone && (
-                  <span className="error-message">{error.departmentPhone}</span>
-                )}
-              </div>
-              <div className="input-fields">
-                <label>
-                  Department Location:<p className="important-mark">*</p>{" "}
-                </label>
-                <input
-                  type="text"
-                  name="departmentAddress"
-                  onChange={handleOnChange}
-                  value={contactFormData.departmentAddress}
-                  placeholder="eg.., Happie Street"
-                />
-                {error.departmentAddress && (
-                  <span className="error-message">
-                    {error.departmentAddress}
-                  </span>
-                )}
-              </div>
-              <div className="input-fields">
-                <label>Department website (if applicable): </label>
-                <input
-                  type="text"
-                  name="departmentWebsite"
-                  onChange={handleOnChange}
-                  value={contactFormData.departmentWebsite}
-                  placeholder="eg.., example.in"
-                />
-                {error.departmentWebsite && (
-                  <span className="error-message">
-                    {error.departmentWebsite}
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
+            )}
 
-          {formState === 3 && (
-            <div>
-              <h2>Department head</h2>
-              <div className="input-fields">
-                <label>
-                  HOD name:<p className="important-mark">*</p>{" "}
-                </label>
-                <input
-                  type="text"
-                  name="departmentHODName"
-                  onChange={handleOnChange}
-                  value={headFormData.departmentHODName}
-                  placeholder="eg.., John Doe"
-                />
-                {error.departmentHODName && (
-                  <span className="error-message">
-                    {error.departmentHODName}
-                  </span>
-                )}
+            {formState === 3 && (
+              <div>
+                <h2>Department head</h2>
+                <div className="input-fields">
+                  <label>
+                    HOD name:<p className="important-mark">*</p>{" "}
+                  </label>
+                  <input
+                    type="text"
+                    name="departmentHODName"
+                    onChange={handleOnChange}
+                    value={headFormData.departmentHODName}
+                    placeholder="eg.., John Doe"
+                  />
+                  {error.departmentHODName && (
+                    <span className="error-message">
+                      {error.departmentHODName}
+                    </span>
+                  )}
+                </div>
+                <div className="input-fields">
+                  <label>
+                    HOD email address:<p className="important-mark">*</p>{" "}
+                  </label>
+                  <input
+                    type="email"
+                    name="departmentHODEmail"
+                    onChange={handleOnChange}
+                    value={headFormData.departmentHODEmail}
+                    placeholder="eg.., example.in"
+                  />
+                  {error.departmentHODEmail && (
+                    <span className="error-message">
+                      {error.departmentHODEmail}
+                    </span>
+                  )}
+                </div>
+                <div className="input-fields">
+                  <label>
+                    HOD Contact Number: <p className="important-mark">*</p>
+                  </label>
+                  <input
+                    type="email"
+                    name="departmentHODPhone"
+                    onChange={handleOnChange}
+                    value={headFormData.departmentHODPhone}
+                    placeholder="eg.., 432 567 890"
+                  />
+                  {error.departmentHODPhone && (
+                    <span className="error-message">
+                      {error.departmentHODPhone}
+                    </span>
+                  )}
+                </div>
               </div>
-              <div className="input-fields">
-                <label>
-                  HOD email address:<p className="important-mark">*</p>{" "}
-                </label>
-                <input
-                  type="email"
-                  name="departmentHODEmail"
-                  onChange={handleOnChange}
-                  value={headFormData.departmentHODEmail}
-                  placeholder="eg.., example.in"
-                />
-                {error.departmentHODEmail && (
-                  <span className="error-message">
-                    {error.departmentHODEmail}
-                  </span>
-                )}
-              </div>
-              <div className="input-fields">
-                <label>
-                  HOD Contact Number: <p className="important-mark">*</p>
-                </label>
-                <input
-                  type="email"
-                  name="departmentHODPhone"
-                  onChange={handleOnChange}
-                  value={headFormData.departmentHODPhone}
-                  placeholder="eg.., 432 567 890"
-                />
-                {error.departmentHODPhone && (
-                  <span className="error-message">
-                    {error.departmentHODPhone}
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
+            )}
 
-          {formState === 4 && (
-            <div>
-              <h2>Send verification code</h2>
-              <div className="verification-page">
-                <p>
-                  The verification code is sent to your department email address
-                  <span className="important-mark">*</span>
-                </p>
-                {!verificationCode && (
-                  <div className="send-verification-code">
-                    <button
-                      className="verification-btn"
-                      onClick={sendVerificationCode}
-                      name="entredVerificationCode"
-                    >
-                      Send verification code
-                    </button>
-                    {error.entredVerificationCode && (
-                      <span className="error-message">
-                        {error.entredVerificationCode}
-                      </span>
-                    )}
-                  </div>
-                )}
-                {verificationCode && !isValidCode && (
-                  <div>
-                    <div className="input-fields">
-                      <label>
-                        Enter verification code:{" "}
-                        <p className="important-mark">*</p>
-                      </label>
-                      <input
-                        type="text"
-                        maxLength="6"
-                        placeholder="eg.., xyz123"
+            {formState === 4 && (
+              <div>
+                <h2>Send verification code</h2>
+                <div className="verification-page">
+                  <p>
+                    The verification code is sent to your department email
+                    address
+                    <span className="important-mark">*</span>
+                  </p>
+
+                  {/* Step 1: Show Send Button if code not yet sent */}
+                  {!verificationCode && (
+                    <div className="send-verification-code">
+                      <button
+                        type="button"
+                        className="verification-btn"
+                        onClick={sendVerificationCode}
                         name="entredVerificationCode"
-                        onChange={handleOnChange}
-                      />
+                        disabled={otpSubmitting}
+                      >
+                        {otpSubmitting
+                          ? "Sending..."
+                          : "Send verification code"}
+                      </button>
+
                       {error.entredVerificationCode && (
                         <span className="error-message">
                           {error.entredVerificationCode}
                         </span>
                       )}
                     </div>
-                    <button
-                      className="verification-submit-btn"
-                      onClick={checkVerificationCode}
-                    >
-                      Submit
-                    </button>
-                  </div>
-                )}
-                {isValidCode && (
-                  <div className="success-code-validation">
-                    <p>Code verified successfully!</p>
-                    <img src={tick_icon} alt="" />
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-          {formState === 5 && (
-            <div>
-              <h2>Set Password</h2>
+                  )}
 
-              <div className="input-fields">
-                <label>
-                  Set Password: <p className="important-mark">*</p>
-                </label>
-                <input
-                  type={showPassword}
-                  placeholder="*** *** ***"
-                  name="password"
-                  onChange={handleOnChange}
-                />
-                {error.password && (
-                  <span className="error-message">{error.password}</span>
-                )}
+                  {/* Step 2: Show Input if code was sent but not yet valid */}
+                  {verificationCode && !isValidCode && (
+                    <div>
+                      <div className="input-fields">
+                        <label>
+                          Enter verification code:{" "}
+                          <span className="important-mark">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          maxLength="6"
+                          placeholder="e.g., XYZ123"
+                          name="entredVerificationCode"
+                          onChange={handleOnChange}
+                        />
+                        {error.entredVerificationCode && (
+                          <span className="error-message">
+                            {error.entredVerificationCode}
+                          </span>
+                        )}
+                      </div>
+                      <div className="eb-register-resend-otp">
+                        <span className="eb-register-resend-otp-btn" onClick={reSendOtp}><i class='bx bx-refresh'></i></span>
+                       <span className="eb-register-resend-otp-text">Resend OTP</span>  
+                      </div>
+                      <button
+                        className="verification-submit-btn"
+                        onClick={checkVerificationCode}
+                        disabled={submitVerify}
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Step 3: Success */}
+                  {isValidCode && (
+                    <div className="success-code-validation">
+                      <p>Code verified successfully!</p>
+                      <img src={tick_icon} alt="Success Tick" />
+                    </div>
+                  )}
+                </div>
               </div>
-              <div className="input-fields">
-                <label>
-                  confirm password : <p className="important-mark">*</p>
-                </label>
-                <input
-                  type={showPassword}
-                  placeholder="*** *** ***"
-                  name="confirmPassword"
-                  onChange={handleOnChange}
-                />
-                {error.confirmPassword && (
-                  <span className="error-message">{error.confirmPassword}</span>
-                )}
+            )}
+
+            {formState === 5 && (
+              <div>
+                <h2>Set Password</h2>
+
+                <div className="input-fields">
+                  <label>
+                    Set Password: <p className="important-mark">*</p>
+                  </label>
+                  <input
+                    type={showPassword}
+                    placeholder="*** *** ***"
+                    name="password"
+                    onChange={handleOnChange}
+                  />
+                  {error.password && (
+                    <span className="error-message">{error.password}</span>
+                  )}
+                </div>
+                <div className="input-fields">
+                  <label>
+                    confirm password : <p className="important-mark">*</p>
+                  </label>
+                  <input
+                    type={showPassword}
+                    placeholder="*** *** ***"
+                    name="confirmPassword"
+                    onChange={handleOnChange}
+                  />
+                  {error.confirmPassword && (
+                    <span className="error-message">
+                      {error.confirmPassword}
+                    </span>
+                  )}
+                </div>
+                <div className="display-password">
+                  <input type="checkbox" onChange={() => displayPassword()} />{" "}
+                  Show password
+                </div>
+                <div className="display-password">
+                  <input
+                    type="checkbox"
+                    name="termsAndCondition"
+                    onChange={handleOnChange}
+                  />{" "}
+                  accept{" "}
+                  <a href="#" onClick={openModal}>
+                    terms & conditions
+                  </a>
+                  <p className="important-mark">*</p>
+                </div>
+                <div className="terms-and-condition-error">
+                  {error.termsAndCondition && (
+                    <span className="error-message">
+                      {error.termsAndCondition}
+                    </span>
+                  )}
+                </div>
+                <div className="display-password">
+                  <input
+                    type="checkbox"
+                    name="twoStepVerification"
+                    onChange={handleOnChange}
+                  />{" "}
+                  Enable two step authendication{" "}
+                  <a href="#" onClick={openAuthModal}>
+                    Learn More
+                  </a>
+                </div>
               </div>
-              <div className="display-password">
-                <input type="checkbox" onChange={() => displayPassword()} />{" "}
-                Show password
-              </div>
-              <div className="display-password">
-                <input
-                  type="checkbox"
-                  name="termsAndCondition"
-                  onChange={handleOnChange}
-                />{" "}
-                accept{" "}
-                <a href="#" onClick={openModal}>
-                  terms & conditions
+            )}
+            <div className="ed-register-form-pagination">
+              {formState > 1 && !isValidCode && (
+                <a href="#" className="previous-btn" onClick={handlePrev}>
+                  Prev
                 </a>
-                <p className="important-mark">*</p>
-              </div>
-              <div className="terms-and-condition-error">
-                {error.termsAndCondition && (
-                  <span className="error-message">
-                    {error.termsAndCondition}
-                  </span>
-                )}
-              </div>
-              <div className="display-password">
-                <input
-                  type="checkbox"
-                  name="twoStepVerification"
-                  onChange={handleOnChange}
-                />{" "}
-                Enable two step authendication{" "}
-                <a href="#" onClick={openAuthModal}>
-                  Learn More
+              )}
+              {formState <= 4 && (
+                <a href="#" className="next-btn" onClick={handleNext}>
+                  Next
                 </a>
-              </div>
+              )}
+              {formState === 5 /*&& verificationCode && isValidCode*/ && (
+                <button
+                  type="submit"
+                  className="next-btn"
+                  id="complete-organization-registration"
+                  disabled={isSubmitting}
+                  onClick={completeRegistration}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <span
+                        className="spinner-border spinner-border-sm me-2"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      Processing...
+                    </>
+                  ) : (
+                    "Complete Registration"
+                  )}
+                </button>
+              )}
             </div>
-          )}
-          <div className="ed-register-form-pagination">
-            {formState > 1 && !isValidCode && (
-              <a href="#" className="previous-btn" onClick={handlePrev}>
-                Prev
-              </a>
-            )}
-            {formState <= 4 && (
-              <a href="#" className="next-btn" onClick={handleNext}>
-                Next
-              </a>
-            )}
-            {formState === 5 /*&& verificationCode && isValidCode*/ && (
-              <button type="submit" className="next-btn">
-                Complete Registration
-              </button>
-            )}
-          </div>
-        </form>
+          </form>
+        </div>
+        <TermsAndConditionsModal isOpen={isModalOpen} onClose={closeModal} />
+        <TwoStepAuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} />
       </div>
-      <TermsAndConditionsModal isOpen={isModalOpen} onClose={closeModal} />
-      <TwoStepAuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} />
-    </div>
     </>
   );
 };

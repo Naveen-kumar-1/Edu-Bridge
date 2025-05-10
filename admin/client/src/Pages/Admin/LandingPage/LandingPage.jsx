@@ -12,7 +12,7 @@ const LandingPage = () => {
     <NavBar/>
     <div className='eb-landing-container'>
      
-      <div>
+      
       <motion.div 
         className='eb-landing-content'
         initial={{ opacity: 0, y: 20 }}
@@ -55,6 +55,7 @@ const LandingPage = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.2 }}
         >
+
           <motion.img
             src={banner}
             alt=""
@@ -65,7 +66,7 @@ const LandingPage = () => {
         </motion.div>
       </motion.div>
 
-      </div>
+
     </div>
     </>
   )

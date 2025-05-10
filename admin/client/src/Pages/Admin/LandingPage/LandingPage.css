@@ -1,113 +1,126 @@
-.eb-landing-container{
-    width: 80%;
-    height: 90vh;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin: auto;
-    
+.eb-landing-container {
+  width: 80%;
+  height: 90vh;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
 }
-.eb-landing-content{
-    width: 100%;
-    display: flex;
-    padding: 20px 40px;
+.eb-landing-content {
+  width: 100%;
+  display: flex;
+  padding: 20px 40px;
 }
-.eb-landing-content-left{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    text-align: center;
+.eb-landing-content-left {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  text-align: center;
 }
-.eb-landing-content-left button{
-    margin-top: 50px;
-    padding: 15px 30px;
-    background: #000;
-    border: 0;
-    outline: none;
-    color: #fff;
-    border-radius: 75px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    
-    gap: 10px;
-    transition: .3s;
+.eb-landing-content-left button {
+  margin-top: 50px;
+  padding: 15px 30px;
+  background: #000;
+  border: 0;
+  outline: none;
+  color: #fff;
+  border-radius: 75px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+  transition: 0.3s;
 }
-.eb-landing-content-left button:hover{
-    transform: scale(1.05);
-    cursor: pointer;
-    font-weight: 600;
+.eb-landing-content-left button:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  font-weight: 600;
 }
-.eb-landing-content-left button .bx{
-    font-size: 20px;
+.eb-landing-content-left button .bx {
+  font-size: 20px;
 }
 .eb-landing-content-left span {
-    font-size: 120px;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden; 
-    font-weight: 600;
-    animation: typing 4s steps(30) infinite, blink 0.5s step-end infinite alternate;
+  font-size: 70px;
+  width: 100%;
+  white-space: nowrap;
+  text-align: start;
+  overflow: hidden;
+  font-weight: 600;
+  animation: typing 4s steps(30) infinite,
+    blink 0.5s step-end infinite alternate;
 }
 
-
-
-.eb-landing-content-left p{
-    color: #999;
-    opacity: 0.7;
-    text-align: start;
-    width: 70%;
+.eb-landing-content-left p {
+  color: #999;
+  opacity: 0.7;
+  text-align: start;
+  width: 70%;
 }
-.eb-landing-content-right::before{
-    content: '';
-    width: 800px;
-    height: 800px;
-    background: #f0f0f0;
-    position: absolute;
-    top: 10%;
-    
-    right: -10%;
-    z-index: 0;
-    border-radius: 50%;
+
+.eb-landing-content-right::before {
+  content: "";
+  width: 600px;
+  height: 600px;
+  background: #f4f4f4;
+  position: absolute;
+  top: 10%;
+  overflow: hidden;
+  right: 0%;
+  z-index: 0;
+  border-radius: 70% 50% 30% 10%;
 }
-.eb-landing-content-right img{
-width: 700px;
-border-radius: 40px;
-    transition: .3s;
-    animation: 
-    floatRotate 8s ease-in-out infinite,
+.eb-landing-content-right img {
+  width: 700px;
+  border-radius: 40px;
+  transition: 0.3s;
+  animation: floatRotate 8s ease-in-out infinite,
     imageGlow 3s ease-in-out infinite alternate;
-
 }
 @keyframes typing {
-    0% { width: 0; }
-    50% { width: 100%; }
-    100% { width: 0; }
+  0% {
+    width: 0;
   }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
 
-  @keyframes blink {
-    from { border-color: transparent; }
-    to { border-color: black; }
+@keyframes blink {
+  from {
+    border-color: transparent;
   }
-  @keyframes imageGlow {
-    0% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0.1)); }
-    100% { filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3)); }
+  to {
+    border-color: black;
+  }
+}
+@keyframes imageGlow {
+  0% {
+    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0.1));
+  }
+  100% {
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+  }
 }
 @keyframes floatRotate {
-    0%, 100% { 
-        transform: translateY(0) rotate(0deg); 
-    }
-    25% { 
-        transform: translateY(-20px) rotate(2deg); 
-    }
-    50% { 
-        transform: translateY(-10px) rotate(-2deg); 
-    }
-    75% { 
-        transform: translateY(-20px) rotate(2deg); 
-    }
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-2deg);
+  }
+  75% {
+    transform: translateY(-20px) rotate(2deg);
+  }
 }

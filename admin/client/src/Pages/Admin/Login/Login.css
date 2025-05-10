@@ -58,3 +58,34 @@
   .display-password{
     margin-top: 10px;
   }
+
+  /* resend otp css */
+  .eb-login-resend-otp{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    margin: 10px 0;
+  }
+  .eb-login-resend-otp .eb-login-resend-otp-button{
+    width: 30px;
+    height: 30px;
+    background: #f4f4f4;
+    font-weight: 600;
+    font-size: 22px;
+    outline: none;
+    color: #3d3d3d;
+    border: 0;
+    border-radius: 50%;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .eb-login-resend-otp .eb-login-resend-otp-text{
+    font-size: 14px;
+    color: #333;
+    opacity: .8;
+  }

@@ -36,7 +36,9 @@ const HomePage = () => {
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
-
+  const companyData = localStorage.getItem('registeredDepartmentData');
+  console.log(companyData);
+  
   // Skeleton Loader Components
   const BoxSkeleton = () => (
     <div className="ed-dashboard-box skeleton">
